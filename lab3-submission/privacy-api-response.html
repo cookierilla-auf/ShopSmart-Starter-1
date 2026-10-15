@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ShopSmart — Recorded privacy API response</title>
+<style>
+body { margin: 0; background: #f4f6fa; color: #142238; font: 17px/1.6 system-ui, sans-serif; }
+main { max-width: 1100px; margin: 54px auto; padding: 36px 44px; background: white; border: 1px solid #d8e1ea; border-radius: 16px; }
+h1 { margin: 0 0 20px; font-size: 30px; }
+.status { display: inline-block; background: #daf7eb; color: #125d40; padding: 4px 12px; border-radius: 8px; font-weight: 700; }
+code, pre { font: 16px/1.7 Consolas, monospace; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 22px; background: #f2f5f8; border-radius: 10px; }
+.note { color: #516076; font-size: 14px; }
+</style>
+</head>
+<body><main>
+<h1>ShopSmart: recorded live API response</h1>
+<p><code>GET http://localhost:3000/api/products?search=privacy</code></p>
+<p><span class="status">HTTP 200 OK</span> &nbsp; application/json</p>
+<pre>{
+  &quot;products&quot;: [
+    {
+      &quot;id&quot;: 4,
+      &quot;name&quot;: &quot;1080p Webcam&quot;,
+      &quot;description&quot;: &quot;Full HD webcam with privacy cover and built-in microphone.&quot;,
+      &quot;category&quot;: &quot;Video&quot;,
+      &quot;emoji&quot;: &quot;&#128247;&quot;,
+      &quot;price&quot;: 1450,
+      &quot;stock&quot;: 6,
+      &quot;active&quot;: true,
+      &quot;createdAt&quot;: &quot;2026-09-10T10:02:05.25Z&quot;,
+      &quot;updatedAt&quot;: &quot;2026-09-10T10:02:05.25Z&quot;
+    }
+  ]
+}</pre>
+<p class="note">Captured 2026-10-15 14:33:48Z via an HTTP GET to the running Express API. This is a saved response viewer; direct JSON navigation was blocked by the browser client.</p>
+</main></body></html>

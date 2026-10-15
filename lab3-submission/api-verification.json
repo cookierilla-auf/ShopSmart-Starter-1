@@ -1,0 +1,236 @@
+[
+  {
+    "path": "/api/health",
+    "status": 200,
+    "body": {
+      "status": "ok"
+    }
+  },
+  {
+    "path": "/api/products?search=keyboard",
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": 2,
+          "name": "Compact Mechanical Keyboard",
+          "description": "Hot-swappable compact keyboard with tactile switches.",
+          "category": "Accessories",
+          "emoji": "⌨️",
+          "price": 1850,
+          "stock": 8,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/products?search=privacy",
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": 4,
+          "name": "1080p Webcam",
+          "description": "Full HD webcam with privacy cover and built-in microphone.",
+          "category": "Video",
+          "emoji": "📷",
+          "price": 1450,
+          "stock": 6,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/products?search=notfoundword",
+    "status": 200,
+    "body": {
+      "products": []
+    }
+  },
+  {
+    "path": "/api/products",
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": 1,
+          "name": "Wireless Mouse",
+          "description": "Quiet wireless mouse with adjustable sensitivity and USB receiver.",
+          "category": "Accessories",
+          "emoji": "🖱️",
+          "price": 650,
+          "stock": 12,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 2,
+          "name": "Compact Mechanical Keyboard",
+          "description": "Hot-swappable compact keyboard with tactile switches.",
+          "category": "Accessories",
+          "emoji": "⌨️",
+          "price": 1850,
+          "stock": 8,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 3,
+          "name": "USB-C Study Lamp",
+          "description": "Adjustable desk lamp with three brightness levels.",
+          "category": "Study",
+          "emoji": "💡",
+          "price": 900,
+          "stock": 10,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 4,
+          "name": "1080p Webcam",
+          "description": "Full HD webcam with privacy cover and built-in microphone.",
+          "category": "Video",
+          "emoji": "📷",
+          "price": 1450,
+          "stock": 6,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 5,
+          "name": "Laptop Stand",
+          "description": "Foldable aluminum stand for laptops up to 16 inches.",
+          "category": "Study",
+          "emoji": "💻",
+          "price": 1200,
+          "stock": 9,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 6,
+          "name": "USB Headset",
+          "description": "Over-ear headset with noise-reducing boom microphone.",
+          "category": "Audio",
+          "emoji": "🎧",
+          "price": 1350,
+          "stock": 7,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/products?search=%20PrIvAcY%20",
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": 4,
+          "name": "1080p Webcam",
+          "description": "Full HD webcam with privacy cover and built-in microphone.",
+          "category": "Video",
+          "emoji": "📷",
+          "price": 1450,
+          "stock": 6,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/products?search=%20%20",
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": 1,
+          "name": "Wireless Mouse",
+          "description": "Quiet wireless mouse with adjustable sensitivity and USB receiver.",
+          "category": "Accessories",
+          "emoji": "🖱️",
+          "price": 650,
+          "stock": 12,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 2,
+          "name": "Compact Mechanical Keyboard",
+          "description": "Hot-swappable compact keyboard with tactile switches.",
+          "category": "Accessories",
+          "emoji": "⌨️",
+          "price": 1850,
+          "stock": 8,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 3,
+          "name": "USB-C Study Lamp",
+          "description": "Adjustable desk lamp with three brightness levels.",
+          "category": "Study",
+          "emoji": "💡",
+          "price": 900,
+          "stock": 10,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 4,
+          "name": "1080p Webcam",
+          "description": "Full HD webcam with privacy cover and built-in microphone.",
+          "category": "Video",
+          "emoji": "📷",
+          "price": 1450,
+          "stock": 6,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 5,
+          "name": "Laptop Stand",
+          "description": "Foldable aluminum stand for laptops up to 16 inches.",
+          "category": "Study",
+          "emoji": "💻",
+          "price": 1200,
+          "stock": 9,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        },
+        {
+          "id": 6,
+          "name": "USB Headset",
+          "description": "Over-ear headset with noise-reducing boom microphone.",
+          "category": "Audio",
+          "emoji": "🎧",
+          "price": 1350,
+          "stock": 7,
+          "active": true,
+          "createdAt": "2026-09-10T10:02:05.25Z",
+          "updatedAt": "2026-09-10T10:02:05.25Z"
+        }
+      ]
+    }
+  }
+]

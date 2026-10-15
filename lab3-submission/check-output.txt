@@ -1,0 +1,74 @@
+
+> shopsmart-starter@1.0.0 check
+> npm run lint --workspace frontend && npm run lint --workspace backend && npm run test && npm run build
+
+
+> shopsmart-frontend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-backend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-starter@1.0.0 test
+> npm run test --workspace frontend && npm run test --workspace backend
+
+
+> shopsmart-frontend@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/xampp/htdocs/ShopSmart-Starter/frontend
+
+ ✓ src/utils/cart.test.js (5 tests) 2ms
+ ✓ src/pages/ProductsPage.test.jsx (9 tests) 492ms
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  22:36:19
+   Duration  9.92s (transform 74ms, setup 0ms, collect 266ms, tests 494ms, environment 8.85s, prepare 223ms)
+
+
+> shopsmart-backend@1.0.0 test
+> node --test
+
+✔ parseBudget extracts a peso budget (0.7058ms)
+✔ rankProducts respects the budget (0.6968ms)
+✔ assistant response contains traceable sources (0.2055ms)
+✔ search "keyboard" asks for either field, active products, and stable order (40.7278ms)
+✔ search "privacy" asks for either field, active products, and stable order (3.1884ms)
+✔ search "  PrIvAcY  " asks for either field, active products, and stable order (1.7601ms)
+✔ search "notfoundword" asks for either field, active products, and stable order (1.5671ms)
+✔ unfiltered request "" keeps active filtering without an OR clause (1.6717ms)
+✔ unfiltered request "?search=" keeps active filtering without an OR clause (1.283ms)
+✔ unfiltered request "?search=%20%20" keeps active filtering without an OR clause (1.2196ms)
+✔ database failures reach the error handler (1.7392ms)
+✔ a valid classroom order passes validation (2.7013ms)
+✔ duplicate products fail order validation (0.2776ms)
+✔ an oversized assistant question fails validation (0.3256ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 276.368
+
+> shopsmart-starter@1.0.0 build
+> npm run build --workspace frontend
+
+
+> shopsmart-frontend@1.0.0 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 52 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:  0.31 kB
+dist/assets/index-C_E__iQw.css    4.45 kB │ gzip:  1.52 kB
+dist/assets/index-D7f8hQaV.js   273.75 kB │ gzip: 86.62 kB
+✓ built in 835ms
