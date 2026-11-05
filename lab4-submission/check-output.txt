@@ -1,0 +1,95 @@
+
+> shopsmart-starter@1.0.0 check
+> npm run lint --workspace frontend && npm run lint --workspace backend && npm run test && npm run build
+
+
+> shopsmart-frontend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-backend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-starter@1.0.0 test
+> npm run test --workspace frontend && npm run test --workspace backend
+
+
+> shopsmart-frontend@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/xampp/htdocs/ShopSmart-Starter/frontend
+
+ ✓ src/utils/cart.test.js (5 tests) 3ms
+ ✓ src/pages/AssistantPage.test.jsx (3 tests) 149ms
+ ✓ src/pages/ProductsPage.test.jsx (9 tests) 479ms
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  19:43:41
+   Duration  1.84s (transform 119ms, setup 0ms, collect 589ms, tests 631ms, environment 1.32s, prepare 454ms)
+
+
+> shopsmart-backend@1.0.0 test
+> node --test
+
+✔ provider sends the key in a header and parses a structured draft (31.7419ms)
+✔ provider maps failures to typed error codes (51.6426ms)
+✔ provider error messages never contain the key (0.8315ms)
+✔ no key or AI_PROVIDER=off means no provider (rule-based answers) (0.2018ms)
+✔ parseBudget extracts a peso budget (1.0603ms)
+✔ rankProducts respects the budget (1.0027ms)
+✔ assistant response contains traceable sources (12.6457ms)
+✔ parseBudget ignores numbers that are not prices (0.1644ms)
+✔ keyboard question selects only the real in-stock keyboard with a numeric price (0.3559ms)
+✔ out-of-stock and inactive products are never selected (0.196ms)
+✔ a category absent from the catalog produces no match instead of random products (0.1752ms)
+✔ matching uses whole words with shared stems, not substrings (0.1969ms)
+✔ verifyDraft accepts a draft that only uses selected ids and real prices (2.6202ms)
+✔ verifyDraft rejects invented ids, prices, availability claims and bad shapes (0.7868ms)
+✔ answerQuestion does not call the provider when nothing matches (0.2558ms)
+✔ answerQuestion uses a verified AI draft but builds products from catalog facts (0.402ms)
+✔ answerQuestion falls back to rules when the provider fails or drafts unsupported claims (0.8079ms)
+POST /api/assistant/questions 422 7.279 ms
+✔ route rejects a too-short question with HTTP 422 (61.9685ms)
+POST /api/assistant/questions 200 13.458 ms
+✔ route loads only active, in-stock public fields and keeps the response contract (22.3525ms)
+POST /api/assistant/questions 200 1.017 ms
+✔ route returns a rule-based fallback when the provider is unavailable (6.3437ms)
+✔ search "keyboard" asks for either field, active products, and stable order (45.8478ms)
+✔ search "privacy" asks for either field, active products, and stable order (3.2588ms)
+✔ search "  PrIvAcY  " asks for either field, active products, and stable order (2.2549ms)
+✔ search "notfoundword" asks for either field, active products, and stable order (1.5402ms)
+✔ unfiltered request "" keeps active filtering without an OR clause (1.6498ms)
+✔ unfiltered request "?search=" keeps active filtering without an OR clause (1.8608ms)
+✔ unfiltered request "?search=%20%20" keeps active filtering without an OR clause (1.8023ms)
+✔ database failures reach the error handler (1.5112ms)
+✔ a valid classroom order passes validation (2.7404ms)
+✔ duplicate products fail order validation (0.5411ms)
+✔ an oversized assistant question fails validation (0.6296ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 495.6678
+
+> shopsmart-starter@1.0.0 build
+> npm run build --workspace frontend
+
+
+> shopsmart-frontend@1.0.0 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 52 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:  0.31 kB
+dist/assets/index-5UgItQzr.css    4.99 kB │ gzip:  1.66 kB
+dist/assets/index-BJmGPyhh.js   275.13 kB │ gzip: 87.11 kB
+✓ built in 816ms

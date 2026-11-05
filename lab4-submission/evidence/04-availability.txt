@@ -1,0 +1,50 @@
+created fixture #8 (stock 0, ₱1000)
+catalog keyboard rows: #2 Compact Mechanical Keyboard ₱1850 stock 8 | #8 Zero Stock Test Keyboard ₱1000 stock 0
+{
+ "question": "Is there a keyboard under ₱1,200?",
+ "apiResponse": {
+  "status": 200,
+  "body": {
+   "answer": "I could not find an active, in-stock ShopSmart product that matches that request at or below ₱1,200. Try a different product type or budget.",
+   "recommendedProducts": [],
+   "sources": [],
+   "mode": "no-match"
+  }
+ },
+ "links": []
+}
+
+{
+ "question": "Which keyboard is below ₱2,000?",
+ "apiResponse": {
+  "status": 200,
+  "body": {
+   "answer": "The Compact Mechanical Keyboard is priced at ₱1,850, which is below ₱2,000. It is a hot-swappable compact keyboard with tactile switches.",
+   "recommendedProducts": [
+    {
+     "id": 2,
+     "name": "Compact Mechanical Keyboard",
+     "price": 1850,
+     "category": "Accessories",
+     "stock": 8
+    }
+   ],
+   "sources": [
+    {
+     "type": "product",
+     "id": 2,
+     "name": "Compact Mechanical Keyboard",
+     "price": 1850,
+     "stock": 8
+    }
+   ],
+   "mode": "ai"
+  }
+ },
+ "links": [
+  "Compact Mechanical Keyboard — ₱1,850 · 8 in stock -> /products/2",
+  "Product #2 · Compact Mechanical Keyboard -> /products/2"
+ ]
+}
+
+fixture deleted; leftover fixtures: 0

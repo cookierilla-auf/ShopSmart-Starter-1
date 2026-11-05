@@ -1,0 +1,32 @@
+{
+ "question": "Which keyboard is below ₱2,000?",
+ "apiResponse": {
+  "status": 200,
+  "body": {
+   "answer": "The Compact Mechanical Keyboard is available for ₱1,850, which is below ₱2,000. It is a hot-swappable compact keyboard with tactile switches.",
+   "recommendedProducts": [
+    {
+     "id": 2,
+     "name": "Compact Mechanical Keyboard",
+     "price": 1850,
+     "category": "Accessories",
+     "stock": 8
+    }
+   ],
+   "sources": [
+    {
+     "type": "product",
+     "id": 2,
+     "name": "Compact Mechanical Keyboard",
+     "price": 1850,
+     "stock": 8
+    }
+   ],
+   "mode": "ai"
+  }
+ },
+ "links": [
+  "Compact Mechanical Keyboard — ₱1,850 · 8 in stock -> /products/2",
+  "Product #2 · Compact Mechanical Keyboard -> /products/2"
+ ]
+}

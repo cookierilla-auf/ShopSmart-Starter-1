@@ -1,0 +1,81 @@
+{
+ "invalidInput": {
+  "status": 422,
+  "body": {
+   "error": {
+    "code": "INVALID_QUESTION",
+    "message": "Question must contain between 3 and 300 characters."
+   }
+  }
+ },
+ "sourceCheck": [
+  {
+   "question": "Which keyboard is below ₱2,000?",
+   "mode": "ai",
+   "sourceId": 2,
+   "name": "Compact Mechanical Keyboard",
+   "sourcePrice": 1850,
+   "dbPrice": 1850,
+   "sourceStock": 8,
+   "dbStock": 8,
+   "matches": true
+  },
+  {
+   "question": "Which keyboard is below ₱2,000?",
+   "answer": "The Compact Mechanical Keyboard is available for ₱1,850, which is below ₱2,000. It is a hot-swappable compact keyboard with tactile switches.",
+   "recommendedIds": [
+    2
+   ]
+  },
+  {
+   "question": "I need something for video calls",
+   "mode": "ai",
+   "sourceId": 4,
+   "name": "1080p Webcam",
+   "sourcePrice": 1450,
+   "dbPrice": 1450,
+   "sourceStock": 6,
+   "dbStock": 6,
+   "matches": true
+  },
+  {
+   "question": "I need something for video calls",
+   "answer": "The 1080p Webcam is perfect for video calls. It is a Full HD webcam with a privacy cover and built-in microphone for ₱1,450.",
+   "recommendedIds": [
+    4
+   ]
+  },
+  {
+   "question": "What can I use for studying under ₱1,500?",
+   "mode": "rules",
+   "sourceId": 1,
+   "name": "Wireless Mouse",
+   "sourcePrice": 650,
+   "dbPrice": 650,
+   "sourceStock": 12,
+   "dbStock": 12,
+   "matches": true
+  },
+  {
+   "question": "What can I use for studying under ₱1,500?",
+   "answer": "One in-stock product in the current ShopSmart catalog matches at or below ₱1,500. Wireless Mouse costs ₱650 (12 in stock): Quiet wireless mouse with adjustable sensitivity and USB receiver.",
+   "recommendedIds": [
+    1
+   ]
+  }
+ ],
+ "browseProducts": [
+  "Wireless Mouse",
+  "Compact Mechanical Keyboard",
+  "USB-C Study Lamp",
+  "1080p Webcam",
+  "Laptop Stand",
+  "USB Headset"
+ ],
+ "linkedProductPage": {
+  "url": "http://localhost:5173/products/2",
+  "text": "⌨️\n\nACCESSORIES\n\nCompact Mechanical Keyboard\n\nHot-swappable compact keyboard with tactile switches.\n\n₱1,850.00\n\n8 unit(s) available\n\nAdd to cart"
+ },
+ "cart": "YOUR ORDER\n\nShopping cart\nCompact Mechanical Keyboard was added to your cart.\nCompact Mechanical Keyboard\n\n₱1,850 each\n\n−\nQuantity\n+\n₱1,850\nRemove\nOrder summary\n\nItems\n1\n\nTotal\n₱1,850\n\nProceed to checkout",
+ "checkout": "ORDER RECEIVED\n\nThank you, Lab Four Tester!\n\nYour simulated order number is #1.\n\nTotal: ₱1,850.00\n\nContinue shopping"
+}

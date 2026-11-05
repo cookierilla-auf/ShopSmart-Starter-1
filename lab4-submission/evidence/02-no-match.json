@@ -1,0 +1,13 @@
+{
+ "question": "Do you sell drones?",
+ "apiResponse": {
+  "status": 200,
+  "body": {
+   "answer": "I could not find an active, in-stock ShopSmart product that matches that request. Try a different product type or budget.",
+   "recommendedProducts": [],
+   "sources": [],
+   "mode": "no-match"
+  }
+ },
+ "links": []
+}

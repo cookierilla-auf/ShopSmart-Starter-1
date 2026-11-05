@@ -5,9 +5,9 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import productsRouter from './routes/products.js';
 import ordersRouter from './routes/orders.js';
-import assistantRouter from './routes/assistant.js';
+import { createAssistantRouter } from './routes/assistant.js';
 
-export function createApp() {
+export function createApp(options = {}) {
   const app = express();
   app.disable('x-powered-by');
   app.use(helmet());
@@ -19,7 +19,7 @@ export function createApp() {
   app.get('/api/health', (_request, response) => response.json({ status: 'ok' }));
   app.use('/api/products', productsRouter);
   app.use('/api/orders', ordersRouter);
-  app.use('/api/assistant', assistantRouter);
+  app.use('/api/assistant', createAssistantRouter(options.assistant));
   app.use((_request, response) => response.status(404).json({ error: { code: 'ROUTE_NOT_FOUND', message: 'API route could not be found.' } }));
   app.use((error, request, response, _next) => {
     console.error(`[${request.id}]`, error);
