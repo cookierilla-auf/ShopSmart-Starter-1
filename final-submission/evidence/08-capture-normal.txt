@@ -1,0 +1,19 @@
+saved 00-health.png  {"status":"ok","database":"ok"}
+saved 01-catalog.png  7 products
+saved 02-search-description-match.png  privacy -> 1080p Webcam
+saved 03-search-no-results.png  No products match your filters.
+saved 04-cart-totals.png  before + : ₱2,100.00, after: ₱2,750.00
+saved 05-cart-above-stock-refused.png  Only 6 unit(s) are available. | total ₱2,750.00
+saved 06-cart-remove.png  total after removing webcam: ₱1,300.00
+saved 07-d1-fixed-quantity-21-refused.png  You can order up to 20 units of Test Bulk Cable (fixture) per order. | max=20
+saved 08-d2-fixed-invalid-email.png  Check the customer and cart information: Enter a complete email address, such as juan@example.com.
+saved 09-checkout-success.png  ORDER RECEIVED Thank you, Juan Dela Cruz! Your simulated order number is #3. Total: ₱1,300.00 Continue shopping
+  competing fixture order: HTTP 201
+saved 10-stock-changed-refused.png  Only 15 unit(s) of Test Bulk Cable (fixture) are available.
+saved 11-stock-cart-unchanged.png  cart still 20 x fixture, total ₱1,980.00
+saved 12-assistant-catalog-match.png  Assistant response Answer from ShopSmart catalog rules The AI writer is unavailable right now, so this answer was written by ShopSmart's catalog rules. One in-stock product in the current ShopSmart catalog matches at or below ₱2,000. Compact Mechanical Keyboard costs ₱1,850 (7 in stock): Hot-swappab
+saved 13-assistant-no-match.png  Assistant response No matching product I could not find an active, in-stock ShopSmart product that matches that request. Try a different product type or budget. Sources No catalog product supports a recommendation for this question.
+saved 14-cart-after-refresh.png  before reload: Cart (1), after: Cart (0)
+saved 15-assistant-provider-timeout.png  Assistant response Answer from ShopSmart catalog rules The AI writer took too long to respond, so this answer was written by ShopSmart's catalog rules. One in-stock product in the current ShopSmart catalog matches at or below ₱2,000. Compact Mechanical Keyboard costs ₱1,850 (7 in stock): Hot-swappab
+saved 16-api-down-products.png  Could not load category choices. Clear search to retry. | ShopSmart could not reach the server. Check that the backend is running and try again. Make sure the backend is running.
+saved 17-api-down-assistant.png  ShopSmart could not reach the server. Check that the backend is running and try again. | button: Ask ShopSmart

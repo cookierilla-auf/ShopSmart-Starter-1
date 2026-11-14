@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import StatusMessage from '../components/StatusMessage.jsx';
 import { useCart } from '../context/CartContext.jsx';
 import { api } from '../services/api.js';
-import { calculateItemSubtotal } from '../utils/cart.js';
+import { calculateItemSubtotal, formatPeso } from '../utils/cart.js';
 
 export default function CheckoutPage() {
   const { cart, total, clearCart } = useCart();
@@ -39,7 +39,7 @@ export default function CheckoutPage() {
       <p className="eyebrow">ORDER RECEIVED</p>
       <h1>Thank you, {order.customerName}!</h1>
       <p>Your simulated order number is <strong>#{order.id}</strong>.</p>
-      <p>Total: <strong>₱{Number(order.total).toLocaleString('en-PH', { minimumFractionDigits: 2 })}</strong></p>
+      <p>Total: <strong>{formatPeso(order.total)}</strong></p>
       <Link className="button" to="/">Continue shopping</Link>
     </section>
   );
@@ -62,11 +62,11 @@ export default function CheckoutPage() {
           {cart.map((item) => (
             <p key={item.productId}>
               <span>{item.name} × {item.quantity}</span>
-              <strong>₱{calculateItemSubtotal(item).toLocaleString('en-PH', { minimumFractionDigits: 2 })}</strong>
+              <strong>{formatPeso(calculateItemSubtotal(item))}</strong>
             </p>
           ))}
         </div>
-        <p className="summary-total"><span>Total</span><strong>₱{total.toLocaleString('en-PH')}</strong></p>
+        <p className="summary-total"><span>Total</span><strong>{formatPeso(total)}</strong></p>
         <small>No actual payment will be collected.</small>
       </aside>
     </section>

@@ -1,0 +1,154 @@
+✔ provider sends the key in a header and parses a structured draft (31.2085ms)
+✔ provider maps failures to typed error codes (62.6291ms)
+✔ provider error messages never contain the key (1.3617ms)
+✔ no key or AI_PROVIDER=off means no provider (rule-based answers) (0.33ms)
+✔ parseBudget extracts a peso budget (1.299ms)
+✔ rankProducts respects the budget (1.3023ms)
+✔ assistant response contains traceable sources (15.2455ms)
+✔ parseBudget ignores numbers that are not prices (0.2289ms)
+✔ keyboard question selects only the real in-stock keyboard with a numeric price (0.4382ms)
+✔ out-of-stock and inactive products are never selected (0.314ms)
+✔ a category absent from the catalog produces no match instead of random products (0.3059ms)
+✔ matching uses whole words with shared stems, not substrings (0.3023ms)
+✔ verifyDraft accepts a draft that only uses selected ids and real prices (3.369ms)
+✔ verifyDraft rejects invented ids, prices, availability claims and bad shapes (0.9787ms)
+✔ answerQuestion does not call the provider when nothing matches (0.2835ms)
+✔ answerQuestion uses a verified AI draft but builds products from catalog facts (0.5834ms)
+✔ answerQuestion falls back to rules when the provider fails or drafts unsupported claims (1.1094ms)
+POST /api/assistant/questions 422 9.310 ms
+✔ route rejects a too-short question with HTTP 422 (84.2733ms)
+POST /api/assistant/questions 200 16.734 ms
+✔ route loads only active, in-stock public fields and keeps the response contract (29.3339ms)
+POST /api/assistant/questions 200 0.853 ms
+✔ route returns a rule-based fallback when the provider is unavailable (7.8536ms)
+GET /api/health 200 1.416 ms
+✖ health reports ok when the database answers (72.8299ms)
+GET /api/health 200 0.252 ms
+✖ health returns 503 when the database cannot be reached (14.1636ms)
+POST /api/orders 201 6.181 ms
+✔ a valid order is created once with a server-computed total (81.9665ms)
+POST /api/orders 409 0.727 ms
+✔ a quantity above stock is refused with 409 and no order is written (7.5558ms)
+POST /api/orders 422 0.841 ms
+✔ an unknown or inactive product is refused with 422 and no order is written (4.9812ms)
+POST /api/orders 422 0.998 ms
+✖ an email the browser accepts but the API rejects names the email field (4.0389ms)
+POST /api/orders 422 0.431 ms
+✖ a short address names the delivery address field (5.1392ms)
+POST /api/orders 422 0.369 ms
+✖ a quantity above the 20-unit order cap explains the limit (3.4908ms)
+✔ search "keyboard" asks for either field, active products, and stable order (64.3366ms)
+✔ search "privacy" asks for either field, active products, and stable order (4.5306ms)
+✔ search "  PrIvAcY  " asks for either field, active products, and stable order (2.5564ms)
+✔ search "notfoundword" asks for either field, active products, and stable order (2.231ms)
+✔ unfiltered request "" keeps active filtering without an OR clause (2.5273ms)
+✔ unfiltered request "?search=" keeps active filtering without an OR clause (2.3873ms)
+✔ unfiltered request "?search=%20%20" keeps active filtering without an OR clause (2.173ms)
+✔ database failures reach the error handler (2.6559ms)
+✔ a valid classroom order passes validation (3.5373ms)
+✔ duplicate products fail order validation (0.5258ms)
+✔ an oversized assistant question fails validation (0.4822ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 34
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 617.7963
+
+✖ failing tests:
+
+test at test\health.test.js:16:1
+✖ health reports ok when the database answers (72.8299ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  -   database: 'ok',
+      status: 'ok'
+    }
+  
+      at TestContext.<anonymous> (file:///C:/xampp/htdocs/ShopSmart-Starter/backend/test/health.test.js:19:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { status: 'ok' },
+    expected: { status: 'ok', database: 'ok' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test\health.test.js:23:1
+✖ health returns 503 when the database cannot be reached (14.1636ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 503
+  
+      at TestContext.<anonymous> (file:///C:/xampp/htdocs/ShopSmart-Starter/backend/test/health.test.js:25:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 503,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\orders.test.js:79:1
+✖ an email the browser accepts but the API rejects names the email field (4.0389ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /email address/i. Input:
+  
+  'Check the customer and cart information.'
+  
+      at TestContext.<anonymous> (file:///C:/xampp/htdocs/ShopSmart-Starter/backend/test/orders.test.js:85:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check the customer and cart information.',
+    expected: /email address/i,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test\orders.test.js:89:1
+✖ a short address names the delivery address field (5.1392ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /delivery address/i. Input:
+  
+  'Check the customer and cart information.'
+  
+      at TestContext.<anonymous> (file:///C:/xampp/htdocs/ShopSmart-Starter/backend/test/orders.test.js:92:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check the customer and cart information.',
+    expected: /delivery address/i,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test\orders.test.js:96:1
+✖ a quantity above the 20-unit order cap explains the limit (3.4908ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /20 units/. Input:
+  
+  'Check the customer and cart information.'
+  
+      at TestContext.<anonymous> (file:///C:/xampp/htdocs/ShopSmart-Starter/backend/test/orders.test.js:101:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check the customer and cart information.',
+    expected: /20 units/,
+    operator: 'match',
+    diff: 'simple'
+  }

@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-11-13T15:00:11.537Z",
+  "setup": "Second API instance on :3001 with DATABASE_URL pointing to a closed port (127.0.0.1:5999); real database untouched.",
+  "results": [
+    {
+      "name": "health",
+      "url": "http://localhost:3001/api/health",
+      "status": 200,
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "name": "products",
+      "url": "http://localhost:3001/api/products",
+      "status": 500,
+      "response": {
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "message": "The server could not complete the request.",
+          "traceId": "bd9feea6-22e2-472b-bfda-0cd38fa8ff8f"
+        }
+      }
+    }
+  ]
+}

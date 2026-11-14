@@ -1,0 +1,116 @@
+Commit: 1bfc8a3 + working-tree changes (uncommitted)
+Date: 2026-11-13T23:07:07+08:00
+Node: v24.21.0
+
+
+> shopsmart-starter@1.0.0 check
+> npm run lint --workspace frontend && npm run lint --workspace backend && npm run test && npm run build
+
+
+> shopsmart-frontend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-backend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-starter@1.0.0 test
+> npm run test --workspace frontend && npm run test --workspace backend
+
+
+> shopsmart-frontend@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/xampp/htdocs/ShopSmart-Starter/frontend
+
+ ✓ src/utils/cart.test.js (10 tests) 16ms
+ ✓ src/pages/AssistantPage.test.jsx (3 tests) 133ms
+ ✓ src/pages/ProductsPage.test.jsx (9 tests) 524ms
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  23:07:10
+   Duration  1.91s (transform 125ms, setup 0ms, collect 609ms, tests 673ms, environment 1.36s, prepare 437ms)
+
+
+> shopsmart-backend@1.0.0 test
+> node --test
+
+✔ provider sends the key in a header and parses a structured draft (31.6548ms)
+✔ provider maps failures to typed error codes (65.0483ms)
+✔ provider error messages never contain the key (1.1607ms)
+✔ no key or AI_PROVIDER=off means no provider (rule-based answers) (0.3493ms)
+✔ parseBudget extracts a peso budget (1.3175ms)
+✔ rankProducts respects the budget (0.9868ms)
+✔ assistant response contains traceable sources (14.6682ms)
+✔ parseBudget ignores numbers that are not prices (0.2203ms)
+✔ keyboard question selects only the real in-stock keyboard with a numeric price (0.3581ms)
+✔ out-of-stock and inactive products are never selected (0.2008ms)
+✔ a category absent from the catalog produces no match instead of random products (0.1889ms)
+✔ matching uses whole words with shared stems, not substrings (0.2038ms)
+✔ verifyDraft accepts a draft that only uses selected ids and real prices (2.103ms)
+✔ verifyDraft rejects invented ids, prices, availability claims and bad shapes (0.931ms)
+✔ answerQuestion does not call the provider when nothing matches (0.2687ms)
+✔ answerQuestion uses a verified AI draft but builds products from catalog facts (0.4053ms)
+✔ answerQuestion falls back to rules when the provider fails or drafts unsupported claims (1.3319ms)
+POST /api/assistant/questions 422 7.094 ms
+✔ route rejects a too-short question with HTTP 422 (72.5802ms)
+POST /api/assistant/questions 200 13.947 ms
+✔ route loads only active, in-stock public fields and keeps the response contract (23.941ms)
+POST /api/assistant/questions 200 0.922 ms
+✔ route returns a rule-based fallback when the provider is unavailable (6.5139ms)
+GET /api/health 200 2.102 ms
+✔ health reports ok when the database answers (64.778ms)
+GET /api/health 503 0.410 ms
+✔ health returns 503 when the database cannot be reached (8.9153ms)
+POST /api/orders 201 4.854 ms
+✔ a valid order is created once with a server-computed total (72.2861ms)
+POST /api/orders 409 0.664 ms
+✔ a quantity above stock is refused with 409 and no order is written (7.572ms)
+POST /api/orders 422 0.277 ms
+✔ an unknown or inactive product is refused with 422 and no order is written (3.1707ms)
+POST /api/orders 422 1.059 ms
+✔ an email the browser accepts but the API rejects names the email field (3.6679ms)
+POST /api/orders 422 0.304 ms
+✔ a short address names the delivery address field (3.0889ms)
+POST /api/orders 422 0.348 ms
+✔ a quantity above the 20-unit order cap explains the limit (3.0456ms)
+✔ search "keyboard" asks for either field, active products, and stable order (48.2044ms)
+✔ search "privacy" asks for either field, active products, and stable order (4.1107ms)
+✔ search "  PrIvAcY  " asks for either field, active products, and stable order (2.0761ms)
+✔ search "notfoundword" asks for either field, active products, and stable order (1.8192ms)
+✔ unfiltered request "" keeps active filtering without an OR clause (1.7595ms)
+✔ unfiltered request "?search=" keeps active filtering without an OR clause (1.4029ms)
+✔ unfiltered request "?search=%20%20" keeps active filtering without an OR clause (1.5482ms)
+✔ database failures reach the error handler (1.8486ms)
+✔ a valid classroom order passes validation (2.9854ms)
+✔ duplicate products fail order validation (0.3435ms)
+✔ an oversized assistant question fails validation (0.4185ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 536.5019
+
+> shopsmart-starter@1.0.0 build
+> npm run build --workspace frontend
+
+
+> shopsmart-frontend@1.0.0 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 52 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:  0.31 kB
+dist/assets/index-5UgItQzr.css    4.99 kB │ gzip:  1.66 kB
+dist/assets/index-BlEZiNBR.js   275.27 kB │ gzip: 87.20 kB
+✓ built in 1.13s
+EXIT CODE: 0

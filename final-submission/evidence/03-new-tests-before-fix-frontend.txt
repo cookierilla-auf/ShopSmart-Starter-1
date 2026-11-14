@@ -1,0 +1,110 @@
+
+ RUN  v3.2.7 C:/xampp/htdocs/ShopSmart-Starter/frontend
+
+ ❯ src/utils/cart.test.js (10 tests | 5 failed) 11ms
+   ✓ cart utilities > calculates the cart total 1ms
+   ✓ cart utilities > adds a new product 0ms
+   ✓ cart utilities > prevents a quantity above stock 0ms
+   ✓ cart utilities > refuses a quantity below one and leaves the cart unchanged 0ms
+   ✓ cart utilities > counts all cart units and handles an empty cart 0ms
+   × cart utilities > caps a typed quantity at the 20-unit order limit even when stock is higher 6ms
+     → expected undefined to be 20 // Object.is equality
+   × cart utilities > stops Add to cart at the 20-unit order limit 1ms
+     → expected '' to contain 'up to 20'
+   × cart utilities > still uses stock as the limit when stock is below 20 0ms
+     → (0 , maxOrderQuantity) is not a function
+   × cart utilities > adds centavo prices without floating-point drift 1ms
+     → expected 3899.8500000000004 to be 3899.85 // Object.is equality
+   × cart utilities > formats every peso amount with two decimals 0ms
+     → (0 , formatPeso) is not a function
+ ✓ src/pages/AssistantPage.test.jsx (3 tests) 177ms
+ ✓ src/pages/ProductsPage.test.jsx (9 tests) 605ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/utils/cart.test.js > cart utilities > caps a typed quantity at the 20-unit order limit even when stock is higher
+AssertionError: expected undefined to be 20 // Object.is equality
+
+- Expected: 
+20
+
++ Received: 
+undefined
+
+ ❯ src/utils/cart.test.js:38:35
+     36|   it('caps a typed quantity at the 20-unit order limit even when stock…
+     37|     const cart = [{ productId: 9, name: 'Bulk Cable', price: 99, stock…
+     38|     expect(MAX_QUANTITY_PER_ITEM).toBe(20);
+       |                                   ^
+     39|     expect(maxOrderQuantity(cart[0])).toBe(20);
+     40|     expect(updateCartQuantity(cart, 9, 20).cart[0].quantity).toBe(20);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  src/utils/cart.test.js > cart utilities > stops Add to cart at the 20-unit order limit
+AssertionError: expected '' to contain 'up to 20'
+
+- Expected
++ Received
+
+- up to 20
+
+ ❯ src/utils/cart.test.js:50:26
+     48|     const cart = [{ productId: 9, name: 'Bulk Cable', price: 99, stock…
+     49|     const result = addProductToCart(cart, product);
+     50|     expect(result.error).toContain('up to 20');
+       |                          ^
+     51|     expect(result.cart).toBe(cart);
+     52|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  src/utils/cart.test.js > cart utilities > still uses stock as the limit when stock is below 20
+TypeError: (0 , maxOrderQuantity) is not a function
+ ❯ src/utils/cart.test.js:55:28
+     53| 
+     54|   it('still uses stock as the limit when stock is below 20', () => {
+     55|     expect(maxOrderQuantity({ stock: 6 })).toBe(6);
+       |                            ^
+     56|   });
+     57| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  src/utils/cart.test.js > cart utilities > adds centavo prices without floating-point drift
+AssertionError: expected 3899.8500000000004 to be 3899.85 // Object.is equality
+
+- Expected
++ Received
+
+- 3899.85
++ 3899.8500000000004
+
+ ❯ src/utils/cart.test.js:61:67
+     59|   it('adds centavo prices without floating-point drift', () => {
+     60|     // Plain floating-point gives 3899.8500000000004 and 59.6999999999…
+     61|     expect(calculateCartTotal([{ price: 1299.95, quantity: 3 }])).toBe…
+       |                                                                   ^
+     62|     expect(calculateCartTotal([
+     63|       { price: 19.9, quantity: 3 },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  src/utils/cart.test.js > cart utilities > formats every peso amount with two decimals
+TypeError: (0 , formatPeso) is not a function
+ ❯ src/utils/cart.test.js:69:22
+     67| 
+     68|   it('formats every peso amount with two decimals', () => {
+     69|     expect(formatPeso(3400)).toBe('₱3,400.00');
+       |                      ^
+     70|     expect(formatPeso(2079)).toBe('₱2,079.00');
+     71|     expect(formatPeso(59.97)).toBe('₱59.97');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  5 failed | 17 passed (22)
+   Start at  23:01:34
+   Duration  2.43s (transform 116ms, setup 0ms, collect 643ms, tests 794ms, environment 2.01s, prepare 521ms)
+

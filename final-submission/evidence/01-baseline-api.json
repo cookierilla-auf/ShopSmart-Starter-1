@@ -1,0 +1,487 @@
+{
+  "recordedAt": "2026-11-13T14:58:37.014Z",
+  "api": "http://localhost:3000/api",
+  "health": {
+    "status": "ok"
+  },
+  "results": [
+    {
+      "name": "health",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/health"
+      },
+      "status": 200,
+      "ms": 45,
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "name": "all products",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products"
+      },
+      "status": 200,
+      "ms": 5,
+      "response": {
+        "products": [
+          {
+            "id": 1,
+            "name": "Wireless Mouse",
+            "description": "Quiet wireless mouse with adjustable sensitivity and USB receiver.",
+            "category": "Accessories",
+            "emoji": "🖱️",
+            "price": 650,
+            "stock": 12,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-09-10T10:02:05.250Z"
+          },
+          {
+            "id": 2,
+            "name": "Compact Mechanical Keyboard",
+            "description": "Hot-swappable compact keyboard with tactile switches.",
+            "category": "Accessories",
+            "emoji": "⌨️",
+            "price": 1850,
+            "stock": 7,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-11-05T11:42:43.127Z"
+          },
+          {
+            "id": 3,
+            "name": "USB-C Study Lamp",
+            "description": "Adjustable desk lamp with three brightness levels.",
+            "category": "Study",
+            "emoji": "💡",
+            "price": 900,
+            "stock": 10,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-09-10T10:02:05.250Z"
+          },
+          {
+            "id": 4,
+            "name": "1080p Webcam",
+            "description": "Full HD webcam with privacy cover and built-in microphone.",
+            "category": "Video",
+            "emoji": "📷",
+            "price": 1450,
+            "stock": 6,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-09-10T10:02:05.250Z"
+          },
+          {
+            "id": 5,
+            "name": "Laptop Stand",
+            "description": "Foldable aluminum stand for laptops up to 16 inches.",
+            "category": "Study",
+            "emoji": "💻",
+            "price": 1200,
+            "stock": 9,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-09-10T10:02:05.250Z"
+          },
+          {
+            "id": 6,
+            "name": "USB Headset",
+            "description": "Over-ear headset with noise-reducing boom microphone.",
+            "category": "Audio",
+            "emoji": "🎧",
+            "price": 1350,
+            "stock": 7,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-09-10T10:02:05.250Z"
+          }
+        ]
+      }
+    },
+    {
+      "name": "search name \"keyboard\"",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products?search=keyboard"
+      },
+      "status": 200,
+      "ms": 7,
+      "response": {
+        "products": [
+          {
+            "id": 2,
+            "name": "Compact Mechanical Keyboard",
+            "description": "Hot-swappable compact keyboard with tactile switches.",
+            "category": "Accessories",
+            "emoji": "⌨️",
+            "price": 1850,
+            "stock": 7,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-11-05T11:42:43.127Z"
+          }
+        ]
+      }
+    },
+    {
+      "name": "search description \"privacy\"",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products?search=privacy"
+      },
+      "status": 200,
+      "ms": 3,
+      "response": {
+        "products": [
+          {
+            "id": 4,
+            "name": "1080p Webcam",
+            "description": "Full HD webcam with privacy cover and built-in microphone.",
+            "category": "Video",
+            "emoji": "📷",
+            "price": 1450,
+            "stock": 6,
+            "active": true,
+            "createdAt": "2026-09-10T10:02:05.250Z",
+            "updatedAt": "2026-09-10T10:02:05.250Z"
+          }
+        ]
+      }
+    },
+    {
+      "name": "search no results \"drone\"",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products?search=drone"
+      },
+      "status": 200,
+      "ms": 2,
+      "response": {
+        "products": []
+      }
+    },
+    {
+      "name": "product not found",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/9999"
+      },
+      "status": 404,
+      "ms": 2,
+      "response": {
+        "error": {
+          "code": "PRODUCT_NOT_FOUND",
+          "message": "Product could not be found."
+        }
+      }
+    },
+    {
+      "name": "product invalid id",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/abc"
+      },
+      "status": 400,
+      "ms": 1,
+      "response": {
+        "error": {
+          "code": "INVALID_PRODUCT_ID",
+          "message": "Product ID must be a positive integer."
+        }
+      }
+    },
+    {
+      "name": "checkout: invalid email accepted by browser (juan@example)",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "body": {
+          "customerName": "Juan Dela Cruz",
+          "email": "juan@example",
+          "address": "123 Sample St, Quezon City",
+          "items": [
+            {
+              "productId": 1,
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "status": 422,
+      "ms": 18,
+      "response": {
+        "error": {
+          "code": "INVALID_ORDER",
+          "message": "Check the customer and cart information.",
+          "details": {
+            "formErrors": [],
+            "fieldErrors": {
+              "email": [
+                "Invalid email address"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "checkout: address too short",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "body": {
+          "customerName": "Juan Dela Cruz",
+          "email": "juan.delacruz@example.com",
+          "address": "Manila",
+          "items": [
+            {
+              "productId": 1,
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "status": 422,
+      "ms": 1,
+      "response": {
+        "error": {
+          "code": "INVALID_ORDER",
+          "message": "Check the customer and cart information.",
+          "details": {
+            "formErrors": [],
+            "fieldErrors": {
+              "address": [
+                "Too small: expected string to have >=10 characters"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "checkout: empty cart",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "body": {
+          "customerName": "Juan Dela Cruz",
+          "email": "juan.delacruz@example.com",
+          "address": "123 Sample St, Quezon City",
+          "items": []
+        }
+      },
+      "status": 422,
+      "ms": 2,
+      "response": {
+        "error": {
+          "code": "INVALID_ORDER",
+          "message": "Check the customer and cart information.",
+          "details": {
+            "formErrors": [],
+            "fieldErrors": {
+              "items": [
+                "Too small: expected array to have >=1 items"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "checkout: unknown product",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "body": {
+          "customerName": "Juan Dela Cruz",
+          "email": "juan.delacruz@example.com",
+          "address": "123 Sample St, Quezon City",
+          "items": [
+            {
+              "productId": 9999,
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "status": 422,
+      "ms": 2,
+      "response": {
+        "error": {
+          "code": "PRODUCT_UNAVAILABLE",
+          "message": "One or more products are unavailable."
+        }
+      }
+    },
+    {
+      "name": "stock: 7 x 1080p Webcam (stock 6)",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "body": {
+          "customerName": "Juan Dela Cruz",
+          "email": "juan.delacruz@example.com",
+          "address": "123 Sample St, Quezon City",
+          "items": [
+            {
+              "productId": 4,
+              "quantity": 7
+            }
+          ]
+        }
+      },
+      "status": 409,
+      "ms": 1,
+      "response": {
+        "error": {
+          "code": "INSUFFICIENT_STOCK",
+          "message": "Only 6 unit(s) of 1080p Webcam are available."
+        }
+      }
+    },
+    {
+      "name": "stock: quantity 21 (API cap is 20)",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "body": {
+          "customerName": "Juan Dela Cruz",
+          "email": "juan.delacruz@example.com",
+          "address": "123 Sample St, Quezon City",
+          "items": [
+            {
+              "productId": 1,
+              "quantity": 21
+            }
+          ]
+        }
+      },
+      "status": 422,
+      "ms": 1,
+      "response": {
+        "error": {
+          "code": "INVALID_ORDER",
+          "message": "Check the customer and cart information.",
+          "details": {
+            "formErrors": [],
+            "fieldErrors": {
+              "items": [
+                "Too big: expected number to be <=20"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "stock after refused orders",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/4"
+      },
+      "status": 200,
+      "ms": 1,
+      "response": {
+        "id": 4,
+        "name": "1080p Webcam",
+        "description": "Full HD webcam with privacy cover and built-in microphone.",
+        "category": "Video",
+        "emoji": "📷",
+        "price": 1450,
+        "stock": 6,
+        "active": true,
+        "createdAt": "2026-09-10T10:02:05.250Z",
+        "updatedAt": "2026-09-10T10:02:05.250Z"
+      }
+    },
+    {
+      "name": "assistant: catalog match",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/assistant/questions",
+        "body": {
+          "question": "Which keyboard is below ₱2,000?"
+        }
+      },
+      "status": 200,
+      "ms": 6103,
+      "response": {
+        "answer": "The Compact Mechanical Keyboard is priced at ₱1,850, which is below ₱2,000. It is a hot-swappable compact keyboard with tactile switches.",
+        "recommendedProducts": [
+          {
+            "id": 2,
+            "name": "Compact Mechanical Keyboard",
+            "price": 1850,
+            "category": "Accessories",
+            "stock": 7
+          }
+        ],
+        "sources": [
+          {
+            "type": "product",
+            "id": 2,
+            "name": "Compact Mechanical Keyboard",
+            "price": 1850,
+            "stock": 7
+          }
+        ],
+        "mode": "ai"
+      }
+    },
+    {
+      "name": "assistant: no match",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/assistant/questions",
+        "body": {
+          "question": "Do you sell drones?"
+        }
+      },
+      "status": 200,
+      "ms": 4,
+      "response": {
+        "answer": "I could not find an active, in-stock ShopSmart product that matches that request. Try a different product type or budget.",
+        "recommendedProducts": [],
+        "sources": [],
+        "mode": "no-match"
+      }
+    },
+    {
+      "name": "assistant: question too short",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/assistant/questions",
+        "body": {
+          "question": "hi"
+        }
+      },
+      "status": 422,
+      "ms": 1,
+      "response": {
+        "error": {
+          "code": "INVALID_QUESTION",
+          "message": "Question must contain between 3 and 300 characters."
+        }
+      }
+    },
+    {
+      "name": "unknown API route",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/nope"
+      },
+      "status": 404,
+      "ms": 1,
+      "response": {
+        "error": {
+          "code": "ROUTE_NOT_FOUND",
+          "message": "API route could not be found."
+        }
+      }
+    }
+  ]
+}

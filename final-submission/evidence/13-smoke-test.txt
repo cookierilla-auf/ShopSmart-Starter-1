@@ -1,0 +1,22 @@
+== counts before smoke
+{
+  "checkedAt": "2026-11-13T15:07:51.123Z",
+  "products": 6,
+  "activeProducts": 6,
+  "orders": 3,
+  "orderItems": 3,
+  "latestOrderId": 3
+}
+== smoke (2026-11-13T23:07:51+08:00) app http://localhost:5173 api http://localhost:3000/api
+saved 18-smoke-cart.png  health {"status":"ok","database":"ok"}; 6 products; cart total ₱1,200.00
+saved 19-smoke-checkout.png  ORDER RECEIVED Thank you, Juan Dela Cruz! Your simulated order number is #5. Total: ₱1,200.00 Continue shopping
+saved 20-smoke-assistant.png  Assistant response Answer from ShopSmart catalog rules The AI writer is unavailable right now, so this answer was written by ShopSmart's catalog rules. One in-stock product in the current ShopSmart catalog matches at or below ₱2,000. Compact Mechanical Keyboard costs ₱1,850 (7 in stock): Hot-swappab
+== counts after smoke
+{
+  "checkedAt": "2026-11-13T15:07:53.430Z",
+  "products": 6,
+  "activeProducts": 6,
+  "orders": 4,
+  "orderItems": 4,
+  "latestOrderId": 5
+}

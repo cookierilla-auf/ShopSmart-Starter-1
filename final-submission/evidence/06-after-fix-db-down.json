@@ -1,0 +1,36 @@
+{
+  "recordedAt": "2026-11-13T15:03:11.654Z",
+  "setup": "AFTER FIX D3. Second API instance on :3001 with DATABASE_URL pointing to a closed port (127.0.0.1:5999); real database untouched.",
+  "results": [
+    {
+      "name": "health (db down)",
+      "url": "http://localhost:3001/api/health",
+      "status": 503,
+      "response": {
+        "status": "degraded",
+        "database": "unreachable"
+      }
+    },
+    {
+      "name": "products (db down)",
+      "url": "http://localhost:3001/api/products",
+      "status": 500,
+      "response": {
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "message": "The server could not complete the request.",
+          "traceId": "6a7ecb70-e58b-4c8e-bdd8-5e25bc1673e4"
+        }
+      }
+    },
+    {
+      "name": "health (real db)",
+      "url": "http://localhost:3000/api/health",
+      "status": 200,
+      "response": {
+        "status": "ok",
+        "database": "ok"
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="1000" height="640" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="640" fill="#ffffff"/>
+  <text x="30" y="38" font-size="22" font-weight="700" fill="#0f172a">ShopSmart deployment (planned private staging)</text>
+  <text x="30" y="62" font-size="13" fill="#475569">Dashed orange arrows cross the public internet over HTTPS. Solid grey arrows stay on the hosting provider's private network.</text>
+
+  <!-- Browser -->
+  <rect x="30" y="250" width="180" height="120" rx="12" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="120" y="282" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">Browser</text>
+  <text x="120" y="304" font-size="12" fill="#334155" text-anchor="middle">Instructor / team only</text>
+  <text x="120" y="322" font-size="12" fill="#334155" text-anchor="middle">fictional customer data</text>
+  <text x="120" y="340" font-size="12" fill="#334155" text-anchor="middle">no secrets held here</text>
+
+  <!-- Frontend host -->
+  <rect x="330" y="100" width="300" height="156" rx="12" fill="#ecfeff" stroke="#0e7490" stroke-width="1.5"/>
+  <text x="480" y="130" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">Static frontend host</text>
+  <text x="480" y="150" font-size="12" fill="#334155" text-anchor="middle">serves frontend/dist (Vite build output)</text>
+  <text x="480" y="176" font-size="12" font-weight="700" fill="#0e7490" text-anchor="middle">Build-time config (PUBLIC):</text>
+  <text x="480" y="194" font-size="12" fill="#334155" text-anchor="middle">VITE_API_URL =</text>
+  <text x="480" y="210" font-size="12" fill="#334155" text-anchor="middle">https://shopsmart-api-staging.example/api</text>
+  <text x="480" y="230" font-size="12" font-weight="700" fill="#0e7490" text-anchor="middle">https://shopsmart-staging.example</text>
+  <text x="480" y="244" font-size="11" fill="#64748b" text-anchor="middle">no DATABASE_URL, no provider key</text>
+
+  <!-- API -->
+  <rect x="330" y="350" width="300" height="200" rx="12" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="480" y="380" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">Express API (Node 20.19+)</text>
+  <text x="480" y="400" font-size="12" fill="#334155" text-anchor="middle">npm ci → db:generate → db:deploy → start</text>
+  <text x="480" y="420" font-size="12" fill="#334155" text-anchor="middle">health check: GET /api/health (503 if DB down)</text>
+  <text x="480" y="446" font-size="12" font-weight="700" fill="#15803d" text-anchor="middle">Host secret settings (PRIVATE):</text>
+  <text x="480" y="464" font-size="12" fill="#334155" text-anchor="middle">DATABASE_URL · GEMINI_API_KEY</text>
+  <text x="480" y="482" font-size="12" font-weight="700" fill="#15803d" text-anchor="middle">Plain settings:</text>
+  <text x="480" y="500" font-size="12" fill="#334155" text-anchor="middle">FRONTEND_URL=https://shopsmart-staging.example</text>
+  <text x="480" y="518" font-size="12" fill="#334155" text-anchor="middle">NODE_ENV=production · PORT (from host)</text>
+  <text x="480" y="536" font-size="12" fill="#334155" text-anchor="middle">AI_PROVIDER · GEMINI_MODEL · AI_TIMEOUT_MS</text>
+
+  <!-- Database -->
+  <rect x="740" y="390" width="230" height="130" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="855" y="420" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">PostgreSQL</text>
+  <text x="855" y="440" font-size="12" fill="#334155" text-anchor="middle">managed, private network,</text>
+  <text x="855" y="458" font-size="12" fill="#334155" text-anchor="middle">TLS, daily backups</text>
+  <text x="855" y="480" font-size="12" fill="#334155" text-anchor="middle">schema via prisma migrate deploy</text>
+  <text x="855" y="500" font-size="11" fill="#b91c1c" text-anchor="middle">never run db:seed here</text>
+
+  <!-- Gemini -->
+  <rect x="740" y="160" width="230" height="110" rx="12" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="855" y="190" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">Google Gemini API</text>
+  <text x="855" y="210" font-size="12" fill="#334155" text-anchor="middle">generativelanguage.googleapis.com</text>
+  <text x="855" y="230" font-size="12" fill="#334155" text-anchor="middle">optional: rule answers if off,</text>
+  <text x="855" y="248" font-size="12" fill="#334155" text-anchor="middle">slow (timeout) or failing</text>
+
+  <!-- Browser -> frontend -->
+  <path d="M210,280 C270,240 280,190 328,180" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrowAmber)"/>
+  <text x="40" y="200" font-size="12" fill="#b45309">① HTTPS: pages + JS</text>
+  <!-- Browser -> API -->
+  <path d="M210,340 C270,380 280,430 328,440" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrowAmber)"/>
+  <text x="40" y="400" font-size="12" fill="#b45309">② HTTPS fetch /api/*</text>
+  <text x="40" y="416" font-size="11" fill="#b45309">CORS: only FRONTEND_URL</text>
+  <!-- API -> DB -->
+  <path d="M630,455 L738,455" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="684" y="445" font-size="12" fill="#334155" text-anchor="middle">③ SQL / TLS</text>
+  <text x="684" y="475" font-size="11" fill="#334155" text-anchor="middle">DATABASE_URL</text>
+  <!-- API -> Gemini -->
+  <path d="M600,350 C640,300 690,260 738,240" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrowAmber)"/>
+  <text x="650" y="318" font-size="12" fill="#b45309">④ HTTPS, key in</text>
+  <text x="650" y="334" font-size="12" fill="#b45309">x-goog-api-key header</text>
+
+  <text x="30" y="600" font-size="12" fill="#475569">The Vite bundle only receives VITE_ variables, which are public. Secrets live only in the API host's secret settings and in git-ignored backend/.env locally.</text>
+  <text x="30" y="620" font-size="12" fill="#475569">Status: local release candidate only. No staging was approved, so the URLs above are placeholders (.example).</text>
+</svg>

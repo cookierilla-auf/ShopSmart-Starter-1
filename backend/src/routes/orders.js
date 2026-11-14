@@ -7,7 +7,11 @@ const router = Router();
 router.post('/', async (request, response, next) => {
   try {
     const parsed = orderSchema.safeParse(request.body);
-    if (!parsed.success) return response.status(422).json({ error: { code: 'INVALID_ORDER', message: 'Check the customer and cart information.', details: parsed.error.flatten() } });
+    if (!parsed.success) {
+      // Name every field that failed, so the customer knows what to correct (the browser accepts emails such as juan@example).
+      const reasons = [...new Set(parsed.error.issues.map((issue) => issue.message))];
+      return response.status(422).json({ error: { code: 'INVALID_ORDER', message: `Check the customer and cart information: ${reasons.join(' ')}`, details: parsed.error.flatten() } });
+    }
 
     const productIds = [...new Set(parsed.data.items.map((item) => item.productId))];
     const products = await prisma.product.findMany({ where: { id: { in: productIds }, active: true } });

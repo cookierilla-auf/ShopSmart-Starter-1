@@ -1,0 +1,101 @@
+
+> shopsmart-starter@1.0.0 check
+> npm run lint --workspace frontend && npm run lint --workspace backend && npm run test && npm run build
+
+
+> shopsmart-frontend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-backend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-starter@1.0.0 test
+> npm run test --workspace frontend && npm run test --workspace backend
+
+
+> shopsmart-frontend@1.0.0 test
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90mC:/xampp/htdocs/ShopSmart-Starter/frontend[39m
+
+ [32m✓[39m src/utils/cart.test.js [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/pages/AssistantPage.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 150[2mms[22m[39m
+ [32m✓[39m src/pages/ProductsPage.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 571[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m   Start at [22m 22:57:39
+[2m   Duration [22m 3.99s[2m (transform 180ms, setup 0ms, collect 2.14s, tests 724ms, environment 3.33s, prepare 1.14s)[22m
+
+
+> shopsmart-backend@1.0.0 test
+> node --test
+
+✔ provider sends the key in a header and parses a structured draft (24.1691ms)
+✔ provider maps failures to typed error codes (55.5241ms)
+✔ provider error messages never contain the key (0.8873ms)
+✔ no key or AI_PROVIDER=off means no provider (rule-based answers) (0.1894ms)
+✔ parseBudget extracts a peso budget (1.504ms)
+✔ rankProducts respects the budget (1.3704ms)
+✔ assistant response contains traceable sources (16.1881ms)
+✔ parseBudget ignores numbers that are not prices (0.1409ms)
+✔ keyboard question selects only the real in-stock keyboard with a numeric price (0.3538ms)
+✔ out-of-stock and inactive products are never selected (0.2006ms)
+✔ a category absent from the catalog produces no match instead of random products (0.1678ms)
+✔ matching uses whole words with shared stems, not substrings (0.2094ms)
+✔ verifyDraft accepts a draft that only uses selected ids and real prices (2.0022ms)
+✔ verifyDraft rejects invented ids, prices, availability claims and bad shapes (0.6897ms)
+✔ answerQuestion does not call the provider when nothing matches (0.2438ms)
+✔ answerQuestion uses a verified AI draft but builds products from catalog facts (0.3858ms)
+✔ answerQuestion falls back to rules when the provider fails or drafts unsupported claims (0.7764ms)
+POST /api/assistant/questions 422 7.100 ms
+✔ route rejects a too-short question with HTTP 422 (79.8204ms)
+POST /api/assistant/questions 200 14.080 ms
+✔ route loads only active, in-stock public fields and keeps the response contract (23.0521ms)
+POST /api/assistant/questions 200 0.751 ms
+✔ route returns a rule-based fallback when the provider is unavailable (6.1169ms)
+✔ search "keyboard" asks for either field, active products, and stable order (71.6619ms)
+✔ search "privacy" asks for either field, active products, and stable order (3.6454ms)
+✔ search "  PrIvAcY  " asks for either field, active products, and stable order (1.9285ms)
+✔ search "notfoundword" asks for either field, active products, and stable order (1.4801ms)
+✔ unfiltered request "" keeps active filtering without an OR clause (1.9155ms)
+✔ unfiltered request "?search=" keeps active filtering without an OR clause (1.8847ms)
+✔ unfiltered request "?search=%20%20" keeps active filtering without an OR clause (1.6522ms)
+✔ database failures reach the error handler (1.6613ms)
+✔ a valid classroom order passes validation (3.4452ms)
+✔ duplicate products fail order validation (0.4325ms)
+✔ an oversized assistant question fails validation (0.5028ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1700.783
+
+> shopsmart-starter@1.0.0 build
+> npm run build --workspace frontend
+
+
+> shopsmart-frontend@1.0.0 build
+> vite build
+
+[36mvite v7.3.6 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 52 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.50 kB[22m[1m[22m[2m │ gzip:  0.31 kB[22m
+[2mdist/[22m[35massets/index-5UgItQzr.css  [39m[1m[2m  4.99 kB[22m[1m[22m[2m │ gzip:  1.66 kB[22m
+[2mdist/[22m[36massets/index-BJmGPyhh.js   [39m[1m[2m275.13 kB[22m[1m[22m[2m │ gzip: 87.11 kB[22m
+[32m✓ built in 917ms[39m
+npm notice
+npm notice New major version of npm available! 11.19.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+EXIT CODE: 0

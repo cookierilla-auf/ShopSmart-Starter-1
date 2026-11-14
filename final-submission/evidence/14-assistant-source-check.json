@@ -1,0 +1,80 @@
+{
+  "recordedAt": "2026-11-13T15:08:04.603Z",
+  "checks": [
+    {
+      "question": "Which keyboard is below ₱2,000?",
+      "mode": "rules",
+      "fallbackReason": "PROVIDER_UNAVAILABLE",
+      "answer": "One in-stock product in the current ShopSmart catalog matches at or below ₱2,000. Compact Mechanical Keyboard costs ₱1,850 (7 in stock): Hot-swappable compact keyboard with tactile switches.",
+      "sources": [
+        {
+          "id": 2,
+          "cited": {
+            "name": "Compact Mechanical Keyboard",
+            "price": 1850,
+            "stock": 7
+          },
+          "database": {
+            "name": "Compact Mechanical Keyboard",
+            "price": 1850,
+            "stock": 7,
+            "active": true
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "question": "I need something for video calls",
+      "mode": "rules",
+      "fallbackReason": "PROVIDER_UNAVAILABLE",
+      "answer": "One in-stock product in the current ShopSmart catalog matches. 1080p Webcam costs ₱1,450 (6 in stock): Full HD webcam with privacy cover and built-in microphone.",
+      "sources": [
+        {
+          "id": 4,
+          "cited": {
+            "name": "1080p Webcam",
+            "price": 1450,
+            "stock": 6
+          },
+          "database": {
+            "name": "1080p Webcam",
+            "price": 1450,
+            "stock": 6,
+            "active": true
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "question": "What can I use for studying under ₱1,000?",
+      "mode": "rules",
+      "fallbackReason": "PROVIDER_UNAVAILABLE",
+      "answer": "One in-stock product in the current ShopSmart catalog matches at or below ₱1,000. USB-C Study Lamp costs ₱900 (10 in stock): Adjustable desk lamp with three brightness levels.",
+      "sources": [
+        {
+          "id": 3,
+          "cited": {
+            "name": "USB-C Study Lamp",
+            "price": 900,
+            "stock": 10
+          },
+          "database": {
+            "name": "USB-C Study Lamp",
+            "price": 900,
+            "stock": 10,
+            "active": true
+          },
+          "match": true
+        }
+      ]
+    },
+    {
+      "question": "Do you sell drones?",
+      "mode": "no-match",
+      "answer": "I could not find an active, in-stock ShopSmart product that matches that request. Try a different product type or budget.",
+      "sources": []
+    }
+  ]
+}

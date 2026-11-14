@@ -6,8 +6,28 @@ import morgan from 'morgan';
 import productsRouter from './routes/products.js';
 import ordersRouter from './routes/orders.js';
 import { createAssistantRouter } from './routes/assistant.js';
+import { prisma } from './lib/prisma.js';
+
+const HEALTH_DB_TIMEOUT_MS = 3000;
+
+// A health check that ignores the database would report a deployment healthy while every catalog request fails.
+async function databaseReachable(db) {
+  let timer;
+  try {
+    await Promise.race([
+      db.$queryRaw`SELECT 1`,
+      new Promise((_resolve, reject) => { timer = setTimeout(() => reject(new Error('Database health check timed out.')), HEALTH_DB_TIMEOUT_MS); })
+    ]);
+    return true;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 export function createApp(options = {}) {
+  const { db = prisma } = options;
   const app = express();
   app.disable('x-powered-by');
   app.use(helmet());
@@ -16,7 +36,10 @@ export function createApp(options = {}) {
   app.use((request, response, next) => { request.id = crypto.randomUUID(); response.setHeader('X-Request-ID', request.id); next(); });
   app.use(morgan(':method :url :status :response-time ms'));
 
-  app.get('/api/health', (_request, response) => response.json({ status: 'ok' }));
+  app.get('/api/health', async (_request, response) => {
+    if (await databaseReachable(db)) return response.json({ status: 'ok', database: 'ok' });
+    response.status(503).json({ status: 'degraded', database: 'unreachable' });
+  });
   app.use('/api/products', productsRouter);
   app.use('/api/orders', ordersRouter);
   app.use('/api/assistant', createAssistantRouter(options.assistant));
