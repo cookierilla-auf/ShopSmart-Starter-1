@@ -4,7 +4,7 @@
 - **Environment:** Windows 10, Node v24.21.0, local PostgreSQL `shopsmart` database
 - **App and API:** frontend `http://localhost:5173` (Vite dev), API `http://localhost:3000/api`
 - **Baseline commit:** `1bfc8a3`
-- **Recorder:** Renzo Escoto
+- **Recorder:** Edzl Renzo M. Escoto
 - **Browser runs:** Microsoft Edge driven by `scripts/capture.mjs` (Playwright), plus manual runs in the Claude desktop browser pane
 - **API runs:** `scripts/api-cases.mjs`
 - **Test data:** fictional only. The customer is "Juan Dela Cruz", `juan.delacruz@example.com`, "123 Sample St, Quezon City". A second fictional customer, "Maria Santos", `maria.santos@example.com`, was used only for the competing-order case.
@@ -324,7 +324,7 @@ Starting data: 6 active products and 1 order (`evidence/01-baseline-api.json`, `
 | Field | Record |
 |---|---|
 | Case and starting state | Release build in `frontend/dist`. |
-| Action and test data | `node final-submission/scripts/secret-scan.mjs` |
+| Action and test data | `node lab5-submission/scripts/secret-scan.mjs` |
 | Expected | No `.env` tracked or ever committed. No key or `DATABASE_URL` in submitted files or the bundle. |
 | Observed and evidence | No `.env` is tracked or in the history, and both `.env` files are git-ignored. The Gemini key is not in any submitted file or in the bundle. There are no `DATABASE_URL`, `postgresql://` or `GEMINI_API_KEY` markers in the bundle. The bundle contains only the public `http://localhost:3000/api`. Note: the local database still uses the starter's **sample** password from `.env.example`, which is acceptable locally but must change for staging. Evidence: `evidence/12-secret-scan.json`. |
 | Decision | **Pass** |

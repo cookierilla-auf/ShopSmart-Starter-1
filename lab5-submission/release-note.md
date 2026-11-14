@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Version | `shopsmart-starter` 1.0.0-rc1, built from commit `1bfc8a3` plus the changes in this submission (see the commit or ZIP that contains this file) |
+| Version | `shopsmart-starter` 1.0.0-rc1, fixes committed in `735d9e9` (baseline `1bfc8a3`); this submission folder is `lab5-submission/` |
 | Date | 2026-11-13 |
 | Deployment status | **Local release candidate only.** No hosting or database was approved for this class, so **no staging or live site exists**. The deployment plan is in [`deployment-plan.md`](deployment-plan.md). |
 | Checks | `npm run check` passes: lint clean, **22 frontend + 39 backend tests**, Vite build OK (`evidence/final-check.txt`). |
@@ -68,4 +68,4 @@ The team for this submission has one member.
 
 | Member | Test they ran | Contribution | Issue they can explain |
 |---|---|---|---|
-| Renzo Escoto | TC-16: typing 21 units of a stock-25 product reached checkout and was refused with a vague message. Also ran the full journey, the failure cases (API down, DB down, AI timeout) and the release smoke test. | Fixed D1–D4 with regression tests, added `db:deploy`, wrote the deployment plan and diagram, the test record and this release note. | **D1:** the cart allowed up to `stock` units while the API caps each line at 20. The two rules disagreed, so a valid-looking cart could never be ordered. The fix makes the cart apply the same limit, `min(stock, 20)`, using a constant that matches the API's and is marked "must match" on both sides. |
+| Edzl Renzo M. Escoto | TC-16: typing 21 units of a stock-25 product reached checkout and was refused with a vague message. Also ran the full journey, the failure cases (API down, DB down, AI timeout) and the release smoke test. | Fixed D1–D4 with regression tests, added `db:deploy`, wrote the deployment plan and diagram, the test record and this release note. | **D1:** the cart allowed up to `stock` units while the API caps each line at 20. The two rules disagreed, so a valid-looking cart could never be ordered. The fix makes the cart apply the same limit, `min(stock, 20)`, using a constant that matches the API's and is marked "must match" on both sides. |

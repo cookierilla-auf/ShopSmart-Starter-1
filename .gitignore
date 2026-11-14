@@ -10,3 +10,5 @@ backend/prisma/*.db
 backend/prisma/*.db-journal
 .playwright-mcp/
 docs/
+# Built upload package (ZIP + PDFs); regenerate instead of committing
+submission-package/

@@ -1,5 +1,5 @@
 // Adds or removes ONE disposable fictional product used to reproduce defect D1 (stock above the 20-unit order cap).
-// Usage (project root): node final-submission/scripts/fixture.mjs add|remove
+// Usage (project root): node lab5-submission/scripts/fixture.mjs add|remove
 // "remove" deletes only this fixture and any test order lines that reference it; no other product or order is touched.
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -36,7 +36,7 @@ try {
     });
     console.log(JSON.stringify(result));
   } else {
-    console.error('Usage: node final-submission/scripts/fixture.mjs add|remove');
+    console.error('Usage: node lab5-submission/scripts/fixture.mjs add|remove');
     process.exitCode = 1;
   }
 } finally {

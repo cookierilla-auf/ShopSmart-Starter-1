@@ -14,7 +14,7 @@ An existing database must already contain the ShopSmart schema. Database migrati
 
 ## Evaluator quick start (final release candidate)
 
-Status: **local release candidate only**. No staging or live site exists. See the [final submission](final-submission/README.md).
+Status: **local release candidate only**. No staging or live site exists. See the [final submission](lab5-submission/README.md).
 
 1. Install Node.js 20.19+ and start PostgreSQL with a database and user you control.
 2. Run `npm ci` at the project root.

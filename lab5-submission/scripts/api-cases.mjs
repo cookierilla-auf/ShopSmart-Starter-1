@@ -1,6 +1,6 @@
 // Runs the API side of the customer-journey test cases and saves every request and response.
 // Usage (from the project root, with the API running on :3000):
-//   node final-submission/scripts/api-cases.mjs <label> [--place-order]
+//   node lab5-submission/scripts/api-cases.mjs <label> [--place-order]
 // Only fictional customer details are used. Without --place-order no order is created.
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';

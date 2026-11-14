@@ -1,5 +1,5 @@
 // Release secret check. Reads secret values from the git-ignored backend/.env and reports only yes/no results; it never prints a secret.
-// Usage (project root): node final-submission/scripts/secret-scan.mjs
+// Usage (project root): node lab5-submission/scripts/secret-scan.mjs
 import { execSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';

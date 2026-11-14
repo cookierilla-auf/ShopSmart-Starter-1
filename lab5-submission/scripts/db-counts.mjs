@@ -1,5 +1,5 @@
 // Read-only: prints product, order and order-item counts so testers can prove the data was not reset.
-// Run from the project root: node final-submission/scripts/db-counts.mjs
+// Run from the project root: node lab5-submission/scripts/db-counts.mjs
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -2,6 +2,19 @@
 
 **Local release candidate only.** No staging was approved, so nothing was deployed.
 
+## PDFs to upload (`pdf/`)
+
+| File | Contents |
+|---|---|
+| `Escoto_Lab - ShopSmart Quality and Deployment Guided Challenge.pdf` | Everything in one document: screenshots, release note, deployment diagram and plan, defect log, test record, final check logs |
+| `01-Release-Note.pdf` | Release note (local release candidate only) |
+| `02-Test-Record.pdf` | Test record with 29 cases |
+| `03-Deployment-Diagram-and-Plan.pdf` | Deployment diagram and plan |
+| `04-Defect-Log.pdf` | Defect reproductions, fixes and the open cosmetic issue |
+| `05-Screenshots-and-Final-Check-Logs.pdf` | Screenshots 00–20 and the final `npm run check`, smoke test, secret scan and migration logs |
+
+Rebuild them after editing any `.md` file with `node lab5-submission/scripts/build-pdfs.mjs`.
+
 ## Documents
 
 | File | Contents |
@@ -51,5 +64,6 @@
 | `fixture.mjs add\|remove` | Adds or removes the disposable "Test Bulk Cable (fixture)" (stock 25) used for D1 |
 | `capture.mjs normal\|smoke\|ai-timeout\|backend-down` | Playwright (`playwright-core` with the installed Microsoft Edge) screenshots |
 | `secret-scan.mjs` | Checks for committed `.env` files, and for secrets in submitted files and `frontend/dist`. Prints yes/no only. |
+| `build-pdfs.mjs` | Builds the PDFs in `pdf/` from the Markdown files, in the same format as the earlier lab PDF |
 
 Submit without `node_modules`, `.env` files, `frontend/dist`, keys or database passwords.

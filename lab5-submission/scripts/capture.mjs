@@ -1,8 +1,8 @@
 // Walks the customer journey in the installed Microsoft Edge and saves numbered screenshots.
 // Usage (project root, frontend on :5173):
-//   node final-submission/scripts/capture.mjs normal        API running normally (needs the D1 fixture: fixture.mjs add)
-//   node final-submission/scripts/capture.mjs ai-timeout    API restarted with AI_TIMEOUT_MS=1
-//   node final-submission/scripts/capture.mjs backend-down  API stopped
+//   node lab5-submission/scripts/capture.mjs normal        API running normally (needs the D1 fixture: fixture.mjs add)
+//   node lab5-submission/scripts/capture.mjs ai-timeout    API restarted with AI_TIMEOUT_MS=1
+//   node lab5-submission/scripts/capture.mjs backend-down  API stopped
 // Only fictional customer details are typed. No .env content or keys appear on screen.
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
