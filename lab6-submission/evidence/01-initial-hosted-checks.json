@@ -1,0 +1,226 @@
+{
+  "baseUrl": "https://52-221-80-114.sslip.io",
+  "codeVersion": "v1.1.0-aws",
+  "ranAt": "2026-11-20T10:37:58.175Z",
+  "passed": 31,
+  "failed": 0,
+  "results": [
+    {
+      "id": "H1",
+      "check": "Home page served over HTTPS",
+      "expected": "200 text/html with the React root",
+      "actual": "200 text/html; charset=utf-8",
+      "pass": true
+    },
+    {
+      "id": "H2",
+      "check": "Direct load of a React route (/orders/1)",
+      "expected": "200 index.html (SPA rewrite), not a 404",
+      "actual": "200, root div present",
+      "pass": true
+    },
+    {
+      "id": "H3",
+      "check": "Plain HTTP redirects to HTTPS",
+      "expected": "301/308 to https://",
+      "actual": "308 -> https://52-221-80-114.sslip.io/",
+      "pass": true
+    },
+    {
+      "id": "A1",
+      "check": "GET /api/health through Caddy",
+      "expected": "200 {\"status\":\"ok\",\"database\":\"ok\"}",
+      "actual": "200 {\"status\":\"ok\",\"database\":\"ok\"}",
+      "pass": true
+    },
+    {
+      "id": "A2",
+      "check": "Security headers on API responses",
+      "expected": "HSTS present, no X-Powered-By",
+      "actual": "hsts=true, x-powered-by=null",
+      "pass": true
+    },
+    {
+      "id": "C1",
+      "check": "Catalog loads from PostgreSQL",
+      "expected": "200 with active products",
+      "actual": "200, 6 products",
+      "pass": true
+    },
+    {
+      "id": "C2",
+      "check": "Search filters on the server",
+      "expected": "only keyboard products",
+      "actual": "Compact Mechanical Keyboard",
+      "pass": true
+    },
+    {
+      "id": "O1",
+      "check": "Guest asks for private orders",
+      "expected": "401 AUTH_REQUIRED",
+      "actual": "401 AUTH_REQUIRED",
+      "pass": true
+    },
+    {
+      "id": "O2",
+      "check": "Guest tries to place an order",
+      "expected": "401, nothing saved",
+      "actual": "401 AUTH_REQUIRED",
+      "pass": true
+    },
+    {
+      "id": "O3",
+      "check": "Register fictional customer A",
+      "expected": "201 + HttpOnly Secure SameSite cookie",
+      "actual": "201 cookie=sid=<redacted>; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800; Secure",
+      "pass": true
+    },
+    {
+      "id": "O4",
+      "check": "Wrong password",
+      "expected": "401 INVALID_CREDENTIALS, no cookie",
+      "actual": "401 INVALID_CREDENTIALS",
+      "pass": true
+    },
+    {
+      "id": "K1",
+      "check": "Customer A places a valid simulated order",
+      "expected": "201, server total = price, owner from session",
+      "actual": "201 order #1 total 650 customerId 1",
+      "pass": true
+    },
+    {
+      "id": "K2",
+      "check": "Quantity above the 20-unit cap",
+      "expected": "422 naming the limit",
+      "actual": "422 Check the customer and cart information: Each product is limited to 20 units per order.",
+      "pass": true
+    },
+    {
+      "id": "K3",
+      "check": "Invalid email at checkout",
+      "expected": "422 naming the email field",
+      "actual": "422 Check the customer and cart information: Enter a complete email address, such as juan@example.com.",
+      "pass": true
+    },
+    {
+      "id": "K4",
+      "check": "More than stock of Wireless Mouse (12)",
+      "expected": "409 INSUFFICIENT_STOCK",
+      "actual": "409 INSUFFICIENT_STOCK",
+      "pass": true
+    },
+    {
+      "id": "O5",
+      "check": "Owner opens their order",
+      "expected": "200 with the same order",
+      "actual": "200 order #1",
+      "pass": true
+    },
+    {
+      "id": "O6",
+      "check": "Customer B requests A's order by direct API call",
+      "expected": "404 ORDER_NOT_FOUND",
+      "actual": "404 ORDER_NOT_FOUND",
+      "pass": true
+    },
+    {
+      "id": "O7",
+      "check": "Customer B's order list",
+      "expected": "empty (no other customer data)",
+      "actual": "200 []",
+      "pass": true
+    },
+    {
+      "id": "O8",
+      "check": "After sign-out the session no longer works",
+      "expected": "204 then 401",
+      "actual": "204 then 401",
+      "pass": true
+    },
+    {
+      "id": "O9",
+      "check": "Form-encoded POST (what a cross-site HTML form sends)",
+      "expected": "415 UNSUPPORTED_MEDIA_TYPE",
+      "actual": "415 UNSUPPORTED_MEDIA_TYPE",
+      "pass": true
+    },
+    {
+      "id": "S1",
+      "check": "Supported product question",
+      "expected": "answer citing only current catalog ids, provider labeled",
+      "actual": "200 mode=ai provider={\"name\":\"mock\",\"simulated\":true} sources=2",
+      "pass": true
+    },
+    {
+      "id": "S2",
+      "check": "No matching product",
+      "expected": "mode no-match, no sources",
+      "actual": "200 mode=no-match",
+      "pass": true
+    },
+    {
+      "id": "S-timeout",
+      "check": "Simulated provider timeout",
+      "expected": "rules fallback, reason PROVIDER_TIMEOUT, notice shown",
+      "actual": "200 mode=rules reason=PROVIDER_TIMEOUT",
+      "pass": true
+    },
+    {
+      "id": "S-rate-limit",
+      "check": "Simulated provider rate-limit",
+      "expected": "rules fallback, reason PROVIDER_RATE_LIMITED, notice shown",
+      "actual": "200 mode=rules reason=PROVIDER_RATE_LIMITED",
+      "pass": true
+    },
+    {
+      "id": "S-bad-response",
+      "check": "Simulated provider bad-response",
+      "expected": "rules fallback, reason PROVIDER_BAD_RESPONSE, notice shown",
+      "actual": "200 mode=rules reason=PROVIDER_BAD_RESPONSE",
+      "pass": true
+    },
+    {
+      "id": "S-unknown-product",
+      "check": "Simulated provider unknown-product",
+      "expected": "rules fallback, reason UNKNOWN_PRODUCT_ID, notice shown",
+      "actual": "200 mode=rules reason=UNKNOWN_PRODUCT_ID",
+      "pass": true
+    },
+    {
+      "id": "S3",
+      "check": "Invalid (too short) question",
+      "expected": "422 INVALID_QUESTION",
+      "actual": "422 INVALID_QUESTION",
+      "pass": true
+    },
+    {
+      "id": "N-3000",
+      "check": "Port 3000 from the internet",
+      "expected": "not reachable",
+      "actual": "closed/filtered",
+      "pass": true
+    },
+    {
+      "id": "N-5432",
+      "check": "Port 5432 from the internet",
+      "expected": "not reachable",
+      "actual": "closed/filtered",
+      "pass": true
+    },
+    {
+      "id": "X1",
+      "check": "Served JS bundle (1 file(s), 283649 bytes)",
+      "expected": "no secrets or localhost URLs",
+      "actual": "none found",
+      "pass": true
+    },
+    {
+      "id": "X2",
+      "check": "Repository tracks no .env files",
+      "expected": "only .env.example",
+      "actual": "none",
+      "pass": true
+    }
+  ]
+}

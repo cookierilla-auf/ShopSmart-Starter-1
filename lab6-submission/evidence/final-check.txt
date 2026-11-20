@@ -1,0 +1,163 @@
+
+> shopsmart-starter@1.0.0 check
+> npm run lint --workspace frontend && npm run lint --workspace backend && npm run test && npm run build
+
+
+> shopsmart-frontend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-backend@1.0.0 lint
+> eslint .
+
+
+> shopsmart-starter@1.0.0 test
+> npm run test --workspace frontend && npm run test --workspace backend
+
+
+> shopsmart-frontend@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/xampp/htdocs/ShopSmart-Starter/frontend
+
+ ✓ src/utils/cart.test.js (10 tests) 17ms
+ ✓ src/pages/AssistantPage.test.jsx (3 tests) 155ms
+ ✓ src/pages/AccountOrders.test.jsx (5 tests) 216ms
+ ✓ src/pages/ProductsPage.test.jsx (9 tests) 509ms
+
+ Test Files  4 passed (4)
+      Tests  27 passed (27)
+   Start at  18:22:35
+   Duration  1.86s (transform 194ms, setup 0ms, collect 931ms, tests 897ms, environment 1.99s, prepare 572ms)
+
+
+> shopsmart-backend@1.0.0 test
+> node --test
+
+✔ provider sends the key in a header and parses a structured draft (30.132ms)
+✔ provider maps failures to typed error codes (56.6653ms)
+✔ provider error messages never contain the key (1.2982ms)
+✔ no key or AI_PROVIDER=off means no provider (rule-based answers) (0.3564ms)
+✔ parseBudget extracts a peso budget (1.0634ms)
+✔ rankProducts respects the budget (0.9364ms)
+✔ assistant response contains traceable sources (13.8442ms)
+✔ parseBudget ignores numbers that are not prices (0.1655ms)
+✔ keyboard question selects only the real in-stock keyboard with a numeric price (0.3657ms)
+✔ out-of-stock and inactive products are never selected (0.2328ms)
+✔ a category absent from the catalog produces no match instead of random products (0.2224ms)
+✔ matching uses whole words with shared stems, not substrings (0.2065ms)
+✔ verifyDraft accepts a draft that only uses selected ids and real prices (2.3971ms)
+✔ verifyDraft rejects invented ids, prices, availability claims and bad shapes (0.7716ms)
+✔ answerQuestion does not call the provider when nothing matches (0.2733ms)
+✔ answerQuestion uses a verified AI draft but builds products from catalog facts (0.4428ms)
+✔ answerQuestion falls back to rules when the provider fails or drafts unsupported claims (0.8622ms)
+POST /api/assistant/questions 422 10.867 ms id=ff76ec6d-d03e-4ef9-bc2a-23919c10040a
+✔ route rejects a too-short question with HTTP 422 (85.7357ms)
+POST /api/assistant/questions 200 16.566 ms id=01d6ac4c-eb7f-4e7d-9fc2-385adf07e171
+✔ route loads only active, in-stock public fields and keeps the response contract (29.7826ms)
+POST /api/assistant/questions 200 1.037 ms id=cb5d7d12-0244-41b9-a93a-aeba59329de3
+✔ route returns a rule-based fallback when the provider is unavailable (7.4917ms)
+✔ passwords are stored as salted scrypt hashes and verified (166.7265ms)
+POST /api/auth/register 201 33.093 ms id=17f37895-cc9b-47e1-9e98-9604842d2aa8
+✔ register creates a customer, stores no plain password and starts an HttpOnly session (76.572ms)
+POST /api/auth/register 409 0.492 ms id=94df141f-ce76-4491-ad82-96d6a793a0a5
+✔ a duplicate email is refused with 409 (4.1097ms)
+POST /api/auth/register 422 1.072 ms id=968d4051-48d1-430b-8872-bc95209d7c3e
+✔ invalid registration names the fields to fix (3.4278ms)
+POST /api/auth/login 401 29.049 ms id=43fb1819-e859-4e20-8f5e-15feba1652eb
+POST /api/auth/login 401 28.106 ms id=444efb66-1f2a-40a4-b24c-67974496d0fc
+✔ login with a wrong password or unknown email gives the same 401 (61.4315ms)
+POST /api/auth/login 200 27.430 ms id=37698644-120f-4870-be4b-f1a8f5a013dc
+GET /api/auth/me 200 0.408 ms id=277f62f7-ec47-461d-b521-cfb508d56202
+POST /api/auth/logout 204 0.233 ms id=a69e8103-ebc5-4183-8985-24c361892e35
+GET /api/auth/me 401 0.194 ms id=018f1491-d386-4000-b240-a0d1062771b9
+✔ login, me and logout use the session cookie (33.4528ms)
+GET /api/auth/me 401 0.115 ms id=0ee26d0f-1bc2-4f68-84ce-845dbf7825d4
+✔ a guest calling me gets 401 (1.5778ms)
+✔ a form-encoded POST is refused (CSRF guard) (1.3259ms)
+POST /api/auth/register 201 26.754 ms id=96315447-5f2c-4edd-a5d7-33fb1e73ad54
+✔ cookies are marked Secure in production (28.3178ms)
+GET /api/health 200 2.908 ms id=2d1ea108-6d08-4927-b30e-4dd60b4f41c1
+✔ health reports ok when the database answers (81.4877ms)
+GET /api/health 503 0.729 ms id=b6e8c37d-32d0-43ae-8541-2f605cb32a8e
+✔ health returns 503 when the database cannot be reached (13.6025ms)
+✔ AI_PROVIDER=mock builds the simulated provider without any key (1.2863ms)
+✔ a "#simulate-..." tag is removed from the question before retrieval (6.2204ms)
+POST /api/assistant/questions 200 22.355 ms id=466369d3-28eb-419e-b66e-26584137e3b1
+✔ a mock draft passes verification and is labeled as simulated (107.1267ms)
+POST /api/assistant/questions 200 1.313 ms id=97017e5c-96a9-445f-ac65-b7b6cbe85200
+✔ simulated timeout ends in a labeled, verified rules fallback (13.745ms)
+POST /api/assistant/questions 200 0.864 ms id=d27e3cb1-f0e5-4639-b373-57592713f526
+✔ simulated rate-limit ends in a labeled, verified rules fallback (6.9319ms)
+POST /api/assistant/questions 200 0.576 ms id=1f22ca43-d303-4567-ae74-04ff79b26902
+✔ simulated bad-response ends in a labeled, verified rules fallback (5.6713ms)
+POST /api/assistant/questions 200 0.719 ms id=7520e1c2-c14c-4b63-b4e3-66a234ad85a5
+✔ simulated unknown-product ends in a labeled, verified rules fallback (6.4802ms)
+POST /api/assistant/questions 200 0.641 ms id=283ec82b-2c95-4db9-8f2b-0e88ada41028
+✔ a live (non-simulated) provider treats "#simulate-..." as ordinary text (5.2238ms)
+POST /api/orders 201 6.384 ms id=b17130e2-0616-4173-8f8d-1266ae31b31b
+✔ a valid order is created once with a server-computed total (86.9987ms)
+POST /api/orders 409 0.830 ms id=bd836bde-ceed-4adc-8f07-d82629851d4a
+✔ a quantity above stock is refused with 409 and no order is written (8.6155ms)
+POST /api/orders 422 0.354 ms id=bff3ee49-3bad-47ee-8c43-a24eae4b3011
+✔ an unknown or inactive product is refused with 422 and no order is written (3.8156ms)
+POST /api/orders 422 0.847 ms id=915d3a6e-ab98-4c71-8485-0c0f85c410b1
+✔ an email the browser accepts but the API rejects names the email field (3.5182ms)
+POST /api/orders 422 0.429 ms id=0a3fac32-7cd5-4fa3-9f2a-2f62bc822644
+✔ a short address names the delivery address field (3.1247ms)
+POST /api/orders 422 0.399 ms id=1f9bf115-c6f6-4674-959a-2b04046c5f99
+✔ a quantity above the 20-unit order cap explains the limit (2.6855ms)
+POST /api/orders 401 0.121 ms id=1931689d-8264-4612-a703-0da728510d82
+✔ a guest cannot place an order and nothing is read or written (2.4223ms)
+GET /api/orders 401 0.206 ms id=ba54045a-1177-41c5-9987-2788489fa833
+✔ an unknown session cookie is treated as a guest (1.9129ms)
+POST /api/orders 201 0.458 ms id=cbf98761-f39a-4149-b383-e1da64a2e7bb
+✔ the order owner comes from the session, never from the request body (2.2733ms)
+GET /api/orders 401 0.113 ms id=5f116e12-620d-42af-b6ac-efbceae9b7d7
+GET /api/orders/42 401 0.112 ms id=d75d7879-8653-4594-b4bb-677694497fb4
+✔ a guest is refused private order data (2.9346ms)
+GET /api/orders 200 0.443 ms id=f8997e98-83c5-4e67-9a0d-8d576c552179
+GET /api/orders/42 200 0.456 ms id=64805f36-b4d1-4c5a-8eca-68c40f746123
+✔ the owner can list and open their own order (3.2335ms)
+GET /api/orders/42 404 0.213 ms id=812b2f37-49ca-463c-8cd7-b0d1ff84bf21
+GET /api/orders 200 0.177 ms id=9991013b-ba73-417c-9b19-c298f77c55be
+✔ another customer gets 404 for an order they do not own, and sees none in their list (2.6744ms)
+GET /api/orders/abc 404 0.136 ms id=995c131c-6012-42df-8197-ce0b032618ca
+✔ a non-numeric order id is a 404, not a server error (1.2729ms)
+✔ search "keyboard" asks for either field, active products, and stable order (51.0359ms)
+✔ search "privacy" asks for either field, active products, and stable order (3.7335ms)
+✔ search "  PrIvAcY  " asks for either field, active products, and stable order (2.2111ms)
+✔ search "notfoundword" asks for either field, active products, and stable order (1.7722ms)
+✔ unfiltered request "" keeps active filtering without an OR clause (2.4019ms)
+✔ unfiltered request "?search=" keeps active filtering without an OR clause (1.5142ms)
+✔ unfiltered request "?search=%20%20" keeps active filtering without an OR clause (1.575ms)
+✔ database failures reach the error handler (1.6569ms)
+✔ a valid classroom order passes validation (2.7627ms)
+✔ duplicate products fail order validation (0.3656ms)
+✔ an oversized assistant question fails validation (0.4178ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 63
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 823.2173
+
+> shopsmart-starter@1.0.0 build
+> npm run build --workspace frontend
+
+
+> shopsmart-frontend@1.0.0 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 57 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:  0.31 kB
+dist/assets/index-CHkiNUNn.css    5.86 kB │ gzip:  1.84 kB
+dist/assets/index-CpRuCUfw.js   283.70 kB │ gzip: 89.49 kB
+✓ built in 945ms
