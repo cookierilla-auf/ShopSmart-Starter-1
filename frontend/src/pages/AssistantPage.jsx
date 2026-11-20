@@ -42,6 +42,7 @@ export default function AssistantPage() {
         {!result && !error && !loading && <p>Your answer will appear here.</p>}
         {result && <>
           {MODE_LABELS[result.mode] && <p className={`answer-mode ${result.mode}`}>{MODE_LABELS[result.mode]}</p>}
+          {result.provider?.simulated && <p className="answer-mode simulated">Simulated AI provider (mock), not a live AI call</p>}
           <StatusMessage>{result.notice}</StatusMessage>
           <p>{result.answer}</p>
           {result.recommendedProducts.length > 0 && <div className="recommendations">

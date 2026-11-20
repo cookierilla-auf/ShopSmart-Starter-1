@@ -26,3 +26,22 @@ export const orderSchema = z.object({
 export const assistantQuestionSchema = z.object({
   question: z.string().trim().min(3).max(300)
 });
+
+// Fictional test accounts only. scrypt accepts long input, but 72 keeps limits familiar and bounded.
+const email = z.string().trim().toLowerCase().pipe(z.email('Enter a complete email address, such as juan@example.com.'));
+const password = z.string()
+  .min(8, 'Password must have at least 8 characters.')
+  .max(72, 'Password must have at most 72 characters.');
+
+export const registerSchema = z.object({
+  name: z.string().trim()
+    .min(2, 'Full name must have at least 2 characters.')
+    .max(80, 'Full name must have at most 80 characters.'),
+  email,
+  password
+});
+
+export const loginSchema = z.object({
+  email,
+  password: z.string().min(1, 'Enter your password.').max(72, 'Password must have at most 72 characters.')
+});

@@ -1,13 +1,20 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import StatusMessage from '../components/StatusMessage.jsx';
 import { useCart } from '../context/CartContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 import { api } from '../services/api.js';
 import { calculateItemSubtotal, formatPeso } from '../utils/cart.js';
 
 export default function CheckoutPage() {
   const { cart, total, clearCart } = useCart();
-  const [form, setForm] = useState({ customerName: '', email: '', address: '' });
+  const { customer, checking } = useAuth();
+  // Name and email start from the signed-in account; the order owner itself is set by the server from the session.
+  const [form, setForm] = useState({ customerName: customer?.name || '', email: customer?.email || '', address: '' });
+  // The session check may finish after the first render, so fill any still-empty fields once the customer is known.
+  useEffect(() => {
+    if (customer) setForm((current) => ({ ...current, customerName: current.customerName || customer.name, email: current.email || customer.email }));
+  }, [customer]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [order, setOrder] = useState(null);
@@ -40,10 +47,15 @@ export default function CheckoutPage() {
       <h1>Thank you, {order.customerName}!</h1>
       <p>Your simulated order number is <strong>#{order.id}</strong>.</p>
       <p>Total: <strong>{formatPeso(order.total)}</strong></p>
-      <Link className="button" to="/">Continue shopping</Link>
+      <div className="card-actions">
+        <Link className="button" to={`/orders/${order.id}`}>View order</Link>
+        <Link className="button" to="/">Continue shopping</Link>
+      </div>
     </section>
   );
 
+  if (checking) return <section><StatusMessage>Checking your session…</StatusMessage></section>;
+  if (!customer) return <Navigate to="/account?next=/checkout" replace />;
   if (cart.length === 0) return <section><div className="empty-state"><h1>Your cart is empty</h1><Link className="button" to="/">Browse products</Link></div></section>;
 
   return (

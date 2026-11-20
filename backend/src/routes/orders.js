@@ -1,8 +1,15 @@
 import { Router } from 'express';
 import { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma.js';
+import { requireCustomer } from '../lib/auth.js';
 import { orderSchema } from '../validators/schemas.js';
 const router = Router();
+
+const toJson = (order) => ({ ...order, total: Number(order.total), items: order.items.map((item) => ({ ...item, unitPrice: Number(item.unitPrice) })) });
+const ORDER_ITEMS = { items: { include: { product: { select: { id: true, name: true, emoji: true } } } } };
+
+// Every order route needs a signed-in customer. The owner always comes from the session, never from the request body.
+router.use(requireCustomer);
 
 router.post('/', async (request, response, next) => {
   try {
@@ -33,15 +40,37 @@ router.post('/', async (request, response, next) => {
       }
       return transaction.order.create({
         data: {
-          customerName: parsed.data.customerName, email: parsed.data.email, address: parsed.data.address, total,
+          customerId: request.customer.id, customerName: parsed.data.customerName, email: parsed.data.email, address: parsed.data.address, total,
           items: { create: normalizedItems.map((item) => ({ productId: item.productId, quantity: item.quantity, unitPrice: item.product.price })) }
         },
         include: { items: true }
       });
     });
-    response.status(201).json({ ...order, total: Number(order.total), items: order.items.map((item) => ({ ...item, unitPrice: Number(item.unitPrice) })) });
+    response.status(201).json(toJson(order));
   } catch (error) { next(error); }
 });
 
-// WEEK 4 IMPROVEMENT: Associate orders with authenticated users and add a protected GET route.
+// Lists only the signed-in customer's own orders.
+router.get('/', async (request, response, next) => {
+  try {
+    const orders = await prisma.order.findMany({
+      where: { customerId: request.customer.id }, include: ORDER_ITEMS, orderBy: { createdAt: 'desc' }, take: 50
+    });
+    response.json(orders.map(toJson));
+  } catch (error) { next(error); }
+});
+
+// The ownership check is part of the query: another customer's order id returns the same 404 as a missing one,
+// so the API does not reveal which order ids exist.
+router.get('/:id', async (request, response, next) => {
+  try {
+    const id = Number(request.params.id);
+    const notFound = { error: { code: 'ORDER_NOT_FOUND', message: 'Order not found.' } };
+    if (!Number.isInteger(id) || id <= 0) return response.status(404).json(notFound);
+    const order = await prisma.order.findFirst({ where: { id, customerId: request.customer.id }, include: ORDER_ITEMS });
+    if (!order) return response.status(404).json(notFound);
+    response.json(toJson(order));
+  } catch (error) { next(error); }
+});
+
 export default router;

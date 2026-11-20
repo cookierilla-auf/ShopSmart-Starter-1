@@ -96,8 +96,42 @@ export function createGeminiProvider({ apiKey, model = DEFAULT_GEMINI_MODEL, tim
   return { name: 'gemini', model, draftAnswer };
 }
 
+// Simulated provider for the classroom deployment: no paid API, no network call, clearly labeled in the UI.
+// It drafts wording only from the facts the server selected; the draft still goes through verifyDraft.
+export const MOCK_FAILURES = {
+  timeout: ['PROVIDER_TIMEOUT', 'Simulated provider timeout.'],
+  'rate-limit': ['PROVIDER_RATE_LIMITED', 'Simulated provider rate limit.'],
+  'bad-response': ['PROVIDER_BAD_RESPONSE', 'Simulated malformed provider response.'],
+  'unknown-product': null // returns a draft that cites a product id the server did not select
+};
+const DIRECTIVE = /#simulate-(timeout|rate-limit|bad-response|unknown-product)\b/i;
+
+/** Splits an optional "#simulate-<failure>" tag off a question, so a demo can trigger each failure path on demand. */
+export function splitMockDirective(question) {
+  const match = question.match(DIRECTIVE);
+  if (!match) return { question, failure: null };
+  return { question: question.replace(DIRECTIVE, ' ').replace(/\s+/g, ' ').trim(), failure: match[1].toLowerCase() };
+}
+
+const pesoText = (amount) => `₱${Number(amount).toLocaleString('en-PH', { maximumFractionDigits: 2 })}`;
+
+export function createMockProvider({ failure: defaultFailure = null } = {}) {
+  async function draftAnswer({ facts, failure = defaultFailure }) {
+    if (failure === 'unknown-product') return { answer: 'Simulated draft citing a product that is not in the catalog.', productIds: [999999] };
+    if (failure && MOCK_FAILURES[failure]) throw new ProviderError(...MOCK_FAILURES[failure]);
+    const [first, ...rest] = facts;
+    const others = rest.length ? ` Also consider ${rest.map((fact) => `${fact.name} (${pesoText(fact.price)})`).join(' and ')}.` : '';
+    return { answer: `${first.name} at ${pesoText(first.price)} fits your question: ${first.description}${others}`, productIds: facts.map((fact) => fact.id) };
+  }
+  return { name: 'mock', model: 'mock-1', simulated: true, draftAnswer };
+}
+
 /** Builds the provider from server environment variables, or returns null so the rule-based answer is used. */
 export function createProviderFromEnv(env = process.env, fetchImpl = globalThis.fetch) {
+  if (env.AI_PROVIDER === 'mock') {
+    const failure = env.MOCK_AI_FAILURE?.trim().toLowerCase();
+    return createMockProvider({ failure: failure in MOCK_FAILURES ? failure : null });
+  }
   const apiKey = env.GEMINI_API_KEY?.trim();
   if (!apiKey || env.AI_PROVIDER === 'off') return null;
   const timeoutMs = Number(env.AI_TIMEOUT_MS);

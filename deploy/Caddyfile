@@ -1,0 +1,29 @@
+# ShopSmart public entry point (the only process listening on public ports 80/443).
+# setup-ec2.sh replaces __SITE_DOMAIN__ with <public-ip-with-dashes>.sslip.io; Caddy then obtains and
+# renews a Let's Encrypt certificate automatically and redirects HTTP to HTTPS.
+__SITE_DOMAIN__ {
+	encode zstd gzip
+
+	# API: forwarded to Express, which listens only on 127.0.0.1:3000 (never opened in the security group).
+	handle /api/* {
+		reverse_proxy 127.0.0.1:3000
+	}
+
+	# Frontend: the Vite build. Unknown paths fall back to index.html so React routes survive a refresh.
+	handle {
+		root * /srv/shopsmart/frontend/dist
+		@assets path /assets/*
+		header @assets Cache-Control "public, max-age=31536000, immutable"
+		@html path / /index.html
+		header @html Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}

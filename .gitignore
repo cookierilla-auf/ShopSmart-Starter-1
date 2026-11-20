@@ -1,7 +1,9 @@
 node_modules/
 dist/
+# Every env file except the committed examples (covers .env.production, .env.*.local, ...)
 .env
-.env.local
+.env.*
+!.env.example
 coverage/
 *.log
 .DS_Store

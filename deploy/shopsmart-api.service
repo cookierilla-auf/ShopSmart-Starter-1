@@ -1,0 +1,24 @@
+# systemd keeps the Express API running: it starts at boot, restarts after a crash,
+# and sends stdout/stderr to journald (read with: journalctl -u shopsmart-api).
+[Unit]
+Description=ShopSmart Express API
+After=network-online.target postgresql.service
+Wants=network-online.target postgresql.service
+
+[Service]
+Type=simple
+User=shopsmart
+Group=shopsmart
+WorkingDirectory=/srv/shopsmart/backend
+# Server-only secrets (DATABASE_URL). The file is mode 600 and owned by the shopsmart user.
+EnvironmentFile=/srv/shopsmart/backend/.env
+ExecStart=/usr/bin/node src/server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

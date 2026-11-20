@@ -29,7 +29,34 @@ model Order {
   status       String      @default("PENDING")
   total        Decimal     @db.Decimal(10, 2)
   createdAt    DateTime    @default(now())
+  customerId   Int?
+  customer     Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
   items        OrderItem[]
+
+  @@index([customerId])
+}
+
+// Fictional test customers only. The password is stored as a salted scrypt hash, never in plain text.
+model Customer {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  orders       Order[]
+  sessions     Session[]
+}
+
+// Only a SHA-256 hash of the session token is stored, so a database copy cannot be used to sign in.
+model Session {
+  id         Int      @id @default(autoincrement())
+  tokenHash  String   @unique
+  customerId Int
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
 }
 
 model OrderItem {

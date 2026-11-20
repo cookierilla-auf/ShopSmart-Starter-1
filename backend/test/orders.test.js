@@ -2,6 +2,7 @@ import { after, before, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createApp } from '../src/app.js';
 import { prisma } from '../src/lib/prisma.js';
+import { hashToken } from '../src/lib/auth.js';
 
 // Route tests replace Prisma methods, so no database row is ever read or written.
 const catalog = [
@@ -25,7 +26,21 @@ after(async () => {
   await prisma.$disconnect();
 });
 
+// Two fictional signed-in customers. Only the token hash is looked up, as in production.
+const customers = { 'token-ana': { id: 1, name: 'Ana Santos', email: 'ana@example.com' }, 'token-ben': { id: 2, name: 'Ben Reyes', email: 'ben@example.com' } };
+const sessionsByHash = new Map(Object.entries(customers).map(([token, owner]) => [hashToken(token), owner]));
+
+function mockSessions(t) {
+  const original = prisma.session.findUnique;
+  prisma.session.findUnique = async ({ where }) => {
+    const owner = sessionsByHash.get(where.tokenHash);
+    return owner ? { tokenHash: where.tokenHash, customerId: owner.id, expiresAt: new Date(Date.now() + 60_000), customer: owner } : null;
+  };
+  t.after(() => { prisma.session.findUnique = original; });
+}
+
 function mockPrisma(t) {
+  mockSessions(t);
   const originals = { findMany: prisma.product.findMany, transaction: prisma.$transaction };
   const created = [];
   const findMany = t.mock.fn(async ({ where }) => catalog.filter((product) => where.id.in.includes(product.id)));
@@ -44,7 +59,9 @@ function mockPrisma(t) {
   return { findMany, transaction, created };
 }
 
-const post = (body) => fetch(baseUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+const cookie = (token) => (token ? { Cookie: `sid=${token}` } : {});
+const post = (body, token = 'token-ana') => fetch(baseUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', ...cookie(token) }, body: JSON.stringify(body) });
+const get = (path = '', token = 'token-ana') => fetch(`${baseUrl}${path}`, { headers: cookie(token) });
 
 test('a valid order is created once with a server-computed total', async (t) => {
   const { transaction, created } = mockPrisma(t);
@@ -100,4 +117,70 @@ test('a quantity above the 20-unit order cap explains the limit', async (t) => {
   assert.equal(response.status, 422);
   assert.match(body.error.message, /20 units/);
   assert.equal(transaction.mock.callCount(), 0);
+});
+
+// Improvement 1: orders belong to the signed-in customer, and the API enforces it.
+test('a guest cannot place an order and nothing is read or written', async (t) => {
+  const { findMany, transaction } = mockPrisma(t);
+  const response = await post({ ...customer, items: [{ productId: 1, quantity: 1 }] }, null);
+  assert.equal(response.status, 401);
+  assert.equal((await response.json()).error.code, 'AUTH_REQUIRED');
+  assert.equal(findMany.mock.callCount() + transaction.mock.callCount(), 0);
+});
+
+test('an unknown session cookie is treated as a guest', async (t) => {
+  mockSessions(t);
+  assert.equal((await get('', 'forged-token')).status, 401);
+});
+
+test('the order owner comes from the session, never from the request body', async (t) => {
+  const { created } = mockPrisma(t);
+  const response = await post({ ...customer, customerId: 2, items: [{ productId: 1, quantity: 1 }] }, 'token-ana');
+  assert.equal(response.status, 201);
+  assert.equal(created[0].customerId, 1);
+});
+
+function mockOrders(t) {
+  mockSessions(t);
+  const stored = [{ id: 42, customerId: 1, customerName: 'Ana Santos', email: 'ana@example.com', address: '123 Sample St, Quezon City', status: 'PENDING', total: '650.00', items: [{ id: 1, orderId: 42, productId: 1, quantity: 1, unitPrice: '650.00' }] }];
+  const originals = { findFirst: prisma.order.findFirst, findMany: prisma.order.findMany };
+  const findFirst = t.mock.fn(async ({ where }) => stored.find((order) => order.id === where.id && order.customerId === where.customerId) || null);
+  const findMany = t.mock.fn(async ({ where }) => stored.filter((order) => order.customerId === where.customerId));
+  prisma.order.findFirst = findFirst;
+  prisma.order.findMany = findMany;
+  t.after(() => { prisma.order.findFirst = originals.findFirst; prisma.order.findMany = originals.findMany; });
+  return { findFirst, findMany };
+}
+
+test('a guest is refused private order data', async (t) => {
+  const { findFirst, findMany } = mockOrders(t);
+  assert.equal((await get('', null)).status, 401);
+  assert.equal((await get('/42', null)).status, 401);
+  assert.equal(findFirst.mock.callCount() + findMany.mock.callCount(), 0);
+});
+
+test('the owner can list and open their own order', async (t) => {
+  mockOrders(t);
+  const list = await get('', 'token-ana');
+  assert.equal(list.status, 200);
+  assert.deepEqual((await list.json()).map((order) => order.id), [42]);
+  const one = await get('/42', 'token-ana');
+  assert.equal(one.status, 200);
+  const body = await one.json();
+  assert.equal(body.total, 650);
+  assert.equal(body.items[0].unitPrice, 650);
+});
+
+test('another customer gets 404 for an order they do not own, and sees none in their list', async (t) => {
+  const { findFirst } = mockOrders(t);
+  const response = await get('/42', 'token-ben');
+  assert.equal(response.status, 404);
+  assert.equal((await response.json()).error.code, 'ORDER_NOT_FOUND');
+  assert.deepEqual(findFirst.mock.calls[0].arguments[0].where, { id: 42, customerId: 2 }, 'ownership is part of the query');
+  assert.deepEqual(await (await get('', 'token-ben')).json(), []);
+});
+
+test('a non-numeric order id is a 404, not a server error', async (t) => {
+  mockOrders(t);
+  assert.equal((await get('/abc', 'token-ana')).status, 404);
 });

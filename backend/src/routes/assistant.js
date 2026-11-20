@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import { prisma } from '../lib/prisma.js';
-import { createProviderFromEnv } from '../services/aiProvider.js';
+import { createProviderFromEnv, splitMockDirective } from '../services/aiProvider.js';
 import { answerQuestion } from '../services/assistant.js';
 import { assistantQuestionSchema } from '../validators/schemas.js';
 
@@ -21,7 +21,9 @@ export function createAssistantRouter({ db = prisma, provider = createProviderFr
         select: CATALOG_FACT_FIELDS,
         orderBy: { price: 'asc' }
       });
-      response.json(await answerQuestion(products, parsed.data.question, { provider, logger }));
+      // Only the simulated provider honours "#simulate-<failure>" tags; with a live provider they are ordinary text.
+      const { question, failure } = provider?.simulated ? splitMockDirective(parsed.data.question) : { question: parsed.data.question, failure: null };
+      response.json(await answerQuestion(products, question, { provider, logger, failure }));
     } catch (error) { next(error); }
   });
 

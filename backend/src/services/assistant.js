@@ -158,24 +158,26 @@ function fallback(facts, budget, reason, notice, logger, detail = '') {
  * Retrieval first, then an optional AI draft, then verification.
  * recommendedProducts and sources always come from the selected catalog facts, never from model text.
  */
-export async function answerQuestion(products, question, { provider = null, logger = console } = {}) {
+export async function answerQuestion(products, question, { provider = null, logger = console, failure } = {}) {
   const budget = parseBudget(question);
   const facts = selectCatalogFacts(products, question);
   if (facts.length === 0) return { answer: noMatchAnswer(budget), recommendedProducts: [], sources: [], mode: 'no-match' };
   if (!provider) return fallback(facts, budget, 'NOT_CONFIGURED', NOTICES.NOT_CONFIGURED, logger);
+  // Tells the interface which writer was used, so a simulated provider is never mistaken for a live AI call.
+  const providerInfo = { provider: { name: provider.name, simulated: provider.simulated === true } };
 
   let draft;
   try {
-    draft = await provider.draftAnswer({ question, facts });
+    draft = await provider.draftAnswer({ question, facts, ...(failure ? { failure } : {}) });
   } catch (error) {
     const code = typeof error?.code === 'string' && error.code.startsWith('PROVIDER_') ? error.code : 'PROVIDER_UNAVAILABLE';
     const detail = error?.name === 'ProviderError' ? error.message : '';
-    return fallback(facts, budget, code, NOTICES[code] || NOTICES.PROVIDER_ERROR, logger, detail);
+    return { ...fallback(facts, budget, code, NOTICES[code] || NOTICES.PROVIDER_ERROR, logger, detail), ...providerInfo };
   }
 
   const verified = verifyDraft(draft, facts, budget);
-  if (!verified.ok) return fallback(facts, budget, verified.reason, NOTICES.DRAFT_REJECTED, logger);
+  if (!verified.ok) return { ...fallback(facts, budget, verified.reason, NOTICES.DRAFT_REJECTED, logger), ...providerInfo };
 
   const chosen = verified.productIds.map((id) => facts.find((fact) => fact.id === id));
-  return { answer: verified.answer, ...toResponseProducts(chosen), mode: 'ai' };
+  return { answer: verified.answer, ...toResponseProducts(chosen), mode: 'ai', ...providerInfo };
 }
